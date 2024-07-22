@@ -1,24 +1,15 @@
-package com.runtobeat.first.entity;
-
-import jakarta.persistence.*;
+package com.runtobeat.first.dto;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "Dailyrecord")
-public class DailyRecord {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DailyRecordResponseDTO {
     private String dailyRecordId;
     private Double dailyTotalDistance;
     private Double dailyTotalTime;
     private LocalDate yearMonthDate;
     private Double dailyRecordPace;
 
-    public DailyRecord() {
-    }
-
-    public DailyRecord(String dailyRecordId, Double dailyTotalDistance, Double dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace) {
+    public DailyRecordResponseDTO(String dailyRecordId, Double dailyTotalDistance, Double dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace) {
         this.dailyRecordId = dailyRecordId;
         this.dailyTotalDistance = dailyTotalDistance;
         this.dailyTotalTime = dailyTotalTime;

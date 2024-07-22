@@ -1,12 +1,9 @@
-package com.runtobeat.first.entity;
+package com.runtobeat.first.dto;
+
 
 import java.time.LocalDate;
-import jakarta.persistence.*;
-@Entity
-@Table(name = "MonthlyRecord")
-public class MonthlyRecord {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+public class MonthlyRecordResponseDTO {
     private String monthlyRecordId;
     private String memberId;
     private Long monthlyTotalDistance;
@@ -14,11 +11,7 @@ public class MonthlyRecord {
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
 
-    public MonthlyRecord() {
-
-    }
-
-    public MonthlyRecord(String monthlyRecordId, String memberId, Long monthlyTotalDistance, Long monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace) {
+    public MonthlyRecordResponseDTO(String monthlyRecordId, String memberId, Long monthlyTotalDistance, Long monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace) {
         this.monthlyRecordId = monthlyRecordId;
         this.memberId = memberId;
         this.monthlyTotalDistance = monthlyTotalDistance;

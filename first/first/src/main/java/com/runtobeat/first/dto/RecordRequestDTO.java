@@ -1,15 +1,9 @@
-package com.runtobeat.first.entity;
-
-import jakarta.persistence.*;
+package com.runtobeat.first.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Entity
-@Table(name = "Record")
-public class Record {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class RecordRequestDTO {
     private String recordId;
     private String memberId;
     private Long runningDistance;
@@ -18,10 +12,7 @@ public class Record {
     private LocalDate recordDate;
     private Double recordPace;
 
-    public Record() {
-    }
-
-    public Record(String recordId, String memberId, Long runningDistance, LocalTime runningTime, Long runningStep, LocalDate recordDate, Double recordPace) {
+    public RecordRequestDTO(String recordId, String memberId, Long runningDistance, LocalTime runningTime, Long runningStep, LocalDate recordDate, Double recordPace) {
         this.recordId = recordId;
         this.memberId = memberId;
         this.runningDistance = runningDistance;
