@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Record {
-    String recordId;
-    String memberId;
-    Long runningDistance;
-    LocalTime runningTime;
-    Long runningStep;
-    LocalDate recordDate;
-    Double recordPace;
+    private String recordId;
+    private String memberId;
+    private Long runningDistance;
+    private LocalTime runningTime;
+    private Long runningStep;
+    private LocalDate recordDate;
+    private Double recordPace;
 
 
 }

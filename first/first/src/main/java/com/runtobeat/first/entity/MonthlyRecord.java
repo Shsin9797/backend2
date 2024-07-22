@@ -3,11 +3,11 @@ package com.runtobeat.first.entity;
 import java.time.LocalDate;
 
 public class MonthlyRecord {
-    String monthlyRecordId;
-    String memberId;
-    Long monthlyTotalDistance;
-    Long monthlyTotalTime;
-    LocalDate yearMonth;
-    Double monthlyRecordPace;
+    private String monthlyRecordId;
+    private String memberId;
+    private Long monthlyTotalDistance;
+    private Long monthlyTotalTime;
+    private LocalDate yearMonth;
+    private Double monthlyRecordPace;
 
 }

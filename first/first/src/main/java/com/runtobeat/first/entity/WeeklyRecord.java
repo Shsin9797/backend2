@@ -3,11 +3,11 @@ package com.runtobeat.first.entity;
 import java.time.LocalDate;
 
 public class WeeklyRecord {
-    String weeklyRecordId;
-    String memberId;
-    Long weeklyTotalDistance;
-    Long weeklyTotalTime;
-    LocalDate yearWeek;
-    Double weeklyRecordPace;
+    private String weeklyRecordId;
+    private String memberId;
+    private Long weeklyTotalDistance;
+    private Long weeklyTotalTime;
+    private LocalDate yearWeek;
+    private Double weeklyRecordPace;
 
 }
