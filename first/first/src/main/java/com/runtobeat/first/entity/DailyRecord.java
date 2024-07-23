@@ -1,10 +1,14 @@
 package com.runtobeat.first.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Dailyrecord")
 public class DailyRecord {
     @Id
@@ -14,15 +18,4 @@ public class DailyRecord {
     private Double dailyTotalTime;
     private LocalDate yearMonthDate;
     private Double dailyRecordPace;
-
-    public DailyRecord() {
-    }
-
-    public DailyRecord(String dailyRecordId, Double dailyTotalDistance, Double dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace) {
-        this.dailyRecordId = dailyRecordId;
-        this.dailyTotalDistance = dailyTotalDistance;
-        this.dailyTotalTime = dailyTotalTime;
-        this.yearMonthDate = yearMonthDate;
-        this.dailyRecordPace = dailyRecordPace;
-    }
 }
