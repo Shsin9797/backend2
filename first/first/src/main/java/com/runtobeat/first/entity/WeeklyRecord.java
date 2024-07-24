@@ -22,5 +22,4 @@ public class WeeklyRecord {
     private LocalDate yearWeek;
     private Double weeklyRecordPace;
 
-
 }

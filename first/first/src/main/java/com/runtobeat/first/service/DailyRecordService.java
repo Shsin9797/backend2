@@ -1,6 +1,7 @@
 package com.runtobeat.first.service;
 
 import com.runtobeat.first.dto.DailyRecordRequestDTO;
+import com.runtobeat.first.dto.DailyRecordResponseDTO;
 import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.repository.DailyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class DailyRecordService {
     @Autowired
     private DailyRecordRepository dailyRecordRepository;
 
+    @Autowired
+    private DailyRecordService dailyRecordService;
+
     public DailyRecord createDailyRecord(DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = new DailyRecord(
                 null,
@@ -25,7 +29,7 @@ public class DailyRecordService {
         return dailyRecordRepository.save(dailyRecord);
     }
 
-    public DailyRecord getDailyRecordById(String id) {
+    public DailyRecord getDailyRecordByMemberId(String id) {
         return dailyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
     }
 
@@ -44,5 +48,18 @@ public class DailyRecordService {
 
     public void deleteDailyRecord(String id) {
         dailyRecordRepository.deleteById(id);
+    }
+
+    public List<DailyRecordResponseDTO> getDailyRecordListByMemberId(String memberId) {
+        List<DailyRecord> dailyRecordList = dailyRecordRepository.findAllByMemberId(memberId);
+        return dailyRecordList.stream().map(dailyRecordService::fromEntity).toList();
+    }
+
+    public DailyRecordResponseDTO fromEntity(DailyRecord dailyRecord) {
+        return new DailyRecordResponseDTO(dailyRecord.getDailyRecordId(),
+                dailyRecord.getDailyTotalDistance(),
+                dailyRecord.getDailyTotalTime(),
+                dailyRecord.getYearMonthDate(),
+                dailyRecord.getDailyRecordPace());
     }
 }

@@ -39,10 +39,13 @@ public class MemberController {
         return ResponseEntity.ok(memberResponseDTO);
     }
 
+
     @DeleteMapping("/{memberId}")
     public ResponseEntity<Void> deleteMember(@PathVariable String memberId) {
         memberService.deleteMember(memberId);
         return ResponseEntity.noContent().build();
     }
+
+
 
 }
