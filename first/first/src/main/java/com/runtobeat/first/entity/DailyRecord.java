@@ -16,6 +16,7 @@ public class DailyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String dailyRecordId;
+
     private Double dailyTotalDistance;
     private Double dailyTotalTime;
     private LocalDate yearMonthDate;

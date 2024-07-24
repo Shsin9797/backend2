@@ -30,9 +30,9 @@ public class DailyRecordController {
         ));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DailyRecordResponseDTO> getDailyRecordById(@PathVariable String id) {
-        DailyRecord dailyRecord = dailyRecordService.getDailyRecordById(id);
+    @GetMapping("/{memberId}")
+    public ResponseEntity<DailyRecordResponseDTO> getDailyRecordById(@PathVariable String memberId) {
+        DailyRecord dailyRecord = dailyRecordService.getDailyRecordByMemberId(memberId);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
                 dailyRecord.getDailyTotalDistance(),
@@ -40,6 +40,12 @@ public class DailyRecordController {
                 dailyRecord.getYearMonthDate(),
                 dailyRecord.getDailyRecordPace()
         ));
+    }
+
+    @GetMapping("/list/{memberId}")
+    public ResponseEntity<List<DailyRecordResponseDTO>> getDailyRecordListById(@PathVariable String memberId) {
+        List<DailyRecordResponseDTO> dailyRecord = dailyRecordService.getDailyRecordListByMemberId(memberId);
+        return ResponseEntity.ok(dailyRecord);
     }
 
     @GetMapping
