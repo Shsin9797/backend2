@@ -1,14 +1,15 @@
 package com.runtobeat.first.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "WeeklyRecord")
+@Getter
+@Setter
 
 public class WeeklyRecord {
     @Id

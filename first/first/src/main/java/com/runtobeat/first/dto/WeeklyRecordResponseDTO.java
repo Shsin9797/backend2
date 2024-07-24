@@ -1,10 +1,12 @@
 package com.runtobeat.first.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
 @AllArgsConstructor
+@Getter
 public class WeeklyRecordResponseDTO {
     private String weeklyRecordId;
     private String memberId;
