@@ -2,13 +2,13 @@ package com.runtobeat.first.entity;
 
 import java.time.LocalDate;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "MonthlyRecord")
+@Getter
+@Setter
 public class MonthlyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
