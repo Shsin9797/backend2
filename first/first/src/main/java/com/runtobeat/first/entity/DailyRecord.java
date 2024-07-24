@@ -1,8 +1,8 @@
 package com.runtobeat.first.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 
 import java.time.LocalDate;
 
@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Dailyrecord")
+@Getter
+@Setter
 public class DailyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
