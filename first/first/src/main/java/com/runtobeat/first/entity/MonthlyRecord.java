@@ -1,8 +1,10 @@
 package com.runtobeat.first.entity;
 
 import java.time.LocalDate;
+
 import jakarta.persistence.*;
 import lombok.*;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,8 +20,5 @@ public class MonthlyRecord {
     private Long monthlyTotalTime;
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
-
-
-
 
 }

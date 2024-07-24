@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/weekly-records")
+@RequestMapping("/weekly-record")
 public class WeeklyRecordController {
 
     @Autowired

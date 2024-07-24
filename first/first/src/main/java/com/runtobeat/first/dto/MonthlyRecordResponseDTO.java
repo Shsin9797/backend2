@@ -17,5 +17,4 @@ public class MonthlyRecordResponseDTO {
     private Double monthlyRecordPace;
 
 
-
 }

@@ -37,6 +37,7 @@ public class MemberService {
                 savedMember.getAvgPace()
         );
     }
+
     public MemberResponseDTO getMember(String memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
         return new MemberResponseDTO(
@@ -47,13 +48,14 @@ public class MemberService {
                 member.getAvgPace()
         );
     }
+
     public List<MemberResponseDTO> getAllMembers() {
         return memberRepository.findAll().stream().map(member -> new MemberResponseDTO(
-            member.getMemberId(),
-            member.getMemberName(),
-            member.getTotalDistance(),
-            member.getTotalTime(),
-            member.getAvgPace()
+                member.getMemberId(),
+                member.getMemberName(),
+                member.getTotalDistance(),
+                member.getTotalTime(),
+                member.getAvgPace()
         )).collect(Collectors.toList());
     }
 
@@ -73,6 +75,7 @@ public class MemberService {
                 updatedMember.getAvgPace()
         );
     }
+
     public void deleteMember(String memberId) {
         memberRepository.deleteById(memberId);
     }
