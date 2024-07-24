@@ -1,8 +1,13 @@
 package com.runtobeat.first.dto;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@Getter
 public class MonthlyRecordResponseDTO {
     private String monthlyRecordId;
     private String memberId;
@@ -10,15 +15,6 @@ public class MonthlyRecordResponseDTO {
     private Long monthlyTotalTime;
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
-
-    public MonthlyRecordResponseDTO(String monthlyRecordId, String memberId, Long monthlyTotalDistance, Long monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace) {
-        this.monthlyRecordId = monthlyRecordId;
-        this.memberId = memberId;
-        this.monthlyTotalDistance = monthlyTotalDistance;
-        this.monthlyTotalTime = monthlyTotalTime;
-        this.yearMonth = yearMonth;
-        this.monthlyRecordPace = monthlyRecordPace;
-    }
 
 
 }

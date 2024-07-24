@@ -1,7 +1,12 @@
 package com.runtobeat.first.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@Getter
 public class WeeklyRecordResponseDTO {
     private String weeklyRecordId;
     private String memberId;
@@ -9,13 +14,4 @@ public class WeeklyRecordResponseDTO {
     private Long weeklyTotalTime;
     private LocalDate yearWeek;
     private Double weeklyRecordPace;
-
-    public WeeklyRecordResponseDTO(String weeklyRecordId, String memberId, Long weeklyTotalDistance, Long weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace) {
-        this.weeklyRecordId = weeklyRecordId;
-        this.memberId = memberId;
-        this.weeklyTotalDistance = weeklyTotalDistance;
-        this.weeklyTotalTime = weeklyTotalTime;
-        this.yearWeek = yearWeek;
-        this.weeklyRecordPace = weeklyRecordPace;
-    }
 }

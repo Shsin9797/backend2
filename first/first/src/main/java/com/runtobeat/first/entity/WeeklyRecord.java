@@ -1,10 +1,16 @@
 package com.runtobeat.first.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "WeeklyRecord")
+@Getter
+@Setter
 
 public class WeeklyRecord {
     @Id
@@ -16,15 +22,5 @@ public class WeeklyRecord {
     private LocalDate yearWeek;
     private Double weeklyRecordPace;
 
-    public WeeklyRecord() {
-    }
 
-    public WeeklyRecord(String weeklyRecordId, String memberId, Long weeklyTotalDistance, Long weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace) {
-        this.weeklyRecordId = weeklyRecordId;
-        this.memberId = memberId;
-        this.weeklyTotalDistance = weeklyTotalDistance;
-        this.weeklyTotalTime = weeklyTotalTime;
-        this.yearWeek = yearWeek;
-        this.weeklyRecordPace = weeklyRecordPace;
-    }
 }

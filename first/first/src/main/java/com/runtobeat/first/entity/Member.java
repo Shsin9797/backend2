@@ -1,9 +1,17 @@
 package com.runtobeat.first.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name ="Member")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Table(name = "Member")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,15 +20,4 @@ public class Member {
     private Double totalDistance; // 타입확인
     private Double totalTime; // 타입확인
     private Double avgPace;
-
-    public Member() {
-    }
-
-    public Member(String memberId, String memberName, Double totalDistance, Double totalTime, Double avgPace) {
-        this.memberId = memberId;
-        this.memberName = memberName;
-        this.totalDistance = totalDistance;
-        this.totalTime = totalTime;
-        this.avgPace = avgPace;
-    }
 }
