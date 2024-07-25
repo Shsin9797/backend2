@@ -1,5 +1,6 @@
 package com.runtobeat.first.service;
 
+import com.runtobeat.first.dto.TodayRankingResponseDTO;
 import com.runtobeat.first.dto.RecordRequestDTO;
 import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.entity.Record;
@@ -7,6 +8,7 @@ import com.runtobeat.first.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +20,6 @@ public class RecordService {
 
     public RecordResponseDTO createRecord(RecordRequestDTO recordRequestDTO) {
         Record record = new Record(
-                recordRequestDTO.getRecordId(),
                 recordRequestDTO.getMemberId(),
                 recordRequestDTO.getRunningDistance(),
                 recordRequestDTO.getRunningTime(),
@@ -70,5 +71,23 @@ public class RecordService {
                 record.getRecordDate(),
                 record.getRecordPace()
         );
+    }
+
+
+    public TodayRankingResponseDTO getMyRecordRanking(String memberId, String recordId) {
+
+        //'나'의 '이번' '레코드 기록'의 /  '오늘'의 '랭킹값' 가져오기 (sql 쿼리로 )
+        Integer todayMyThisRanking = recordRepository.getToday
+
+        // '오늘' '전체 사용자' '레코드'의 '페이스' 값을 평균내서 가져오기
+        Double todayTotalUserAvgPace = recordRepository.fgf
+
+        // '오늘' '전체 (기록, 레코드수)' 가져오기
+        Integer todayTotalUserRecordCount = recordRepository.
+
+        // '랭킹' '리스폰스 디티오' 반환
+
+
+        return new TodayRankingResponseDTO(todayMyThisRanking,todayTotalUserAvgPace,todayTotalUserAvgPace);
     }
 }
