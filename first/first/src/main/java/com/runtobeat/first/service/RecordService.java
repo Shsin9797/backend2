@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class RecordService {
 
     private final RecordRepository recordRepository;
+    private final DailyRecordService dailyRecordService;
 
     public RecordResponseDTO createRecord(RecordRequestDTO recordRequestDTO) {
         Record record = new Record(
@@ -29,6 +30,7 @@ public class RecordService {
         );
 
         Record savedRecord = recordRepository.save(record);
+        dailyRecordService.updateDailyRecord(savedRecord);
         return convertToResponseDTO(savedRecord);
     }
 

@@ -5,6 +5,7 @@ import lombok.*;
 
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @NoArgsConstructor
@@ -18,7 +19,16 @@ public class DailyRecord {
     private String dailyRecordId;
 
     private Double dailyTotalDistance;
-    private Double dailyTotalTime;
+    private LocalTime dailyTotalTime;
     private LocalDate yearMonthDate;
     private Double dailyRecordPace;
+    private Long dailyRunningStep;
+
+    public DailyRecord(Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
+        this.dailyTotalDistance = dailyTotalDistance;
+        this.dailyTotalTime = dailyTotalTime;
+        this.yearMonthDate = yearMonthDate;
+        this.dailyRecordPace = dailyRecordPace;
+        this.dailyRunningStep = dailyRunningStep;
+    }
 }
