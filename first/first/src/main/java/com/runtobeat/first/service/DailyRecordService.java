@@ -28,6 +28,7 @@ public class DailyRecordService {
         );
         return dailyRecordRepository.save(dailyRecord);
     }
+    //스토리기록(Record) 에 기록이 하나 추가되면 동시에 dailyRecord값이 갱신된다 (더해진다 )
 
     public DailyRecord getDailyRecordByMemberId(String id) {
         return dailyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));

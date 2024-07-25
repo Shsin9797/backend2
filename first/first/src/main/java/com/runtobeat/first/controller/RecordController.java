@@ -1,5 +1,6 @@
 package com.runtobeat.first.controller;
 
+import com.runtobeat.first.dto.TodayRankingResponseDTO;
 import com.runtobeat.first.dto.RecordRequestDTO;
 import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.service.RecordService;
@@ -16,9 +17,14 @@ public class RecordController {
 
     private final RecordService recordService;
 
-    @PostMapping
+    @PostMapping // api 명세서 1번
     public ResponseEntity<RecordResponseDTO> createRecord(@RequestBody RecordRequestDTO recordRequestDTO) {
         return ResponseEntity.ok(recordService.createRecord(recordRequestDTO));
+    }
+
+    @GetMapping("/rank/{memberId}")
+    public ResponseEntity<TodayRankingResponseDTO> getMyRanking(@RequestParam String memberId) {
+        return ResponseEntity.ok(recordService.getMyRecordRanking(memberId));
     }
 
     @GetMapping("/{id}")

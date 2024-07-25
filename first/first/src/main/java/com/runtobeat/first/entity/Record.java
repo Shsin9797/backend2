@@ -26,5 +26,12 @@ public class Record {
     private LocalDate recordDate;
     private Double recordPace;
 
-
+    public Record(String memberId, Long runningDistance, LocalTime runningTime, Long runningStep, LocalDate recordDate, Double recordPace) {
+        this.memberId = memberId;
+        this.runningDistance = runningDistance;
+        this.runningTime = runningTime;
+        this.runningStep = runningStep;
+        this.recordDate = recordDate;
+        this.recordPace = recordPace;
+    }
 }
