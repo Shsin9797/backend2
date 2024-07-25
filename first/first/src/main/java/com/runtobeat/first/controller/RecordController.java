@@ -19,7 +19,9 @@ public class RecordController {
 
     @PostMapping // api 명세서 1번
     public ResponseEntity<RecordResponseDTO> createRecord(@RequestBody RecordRequestDTO recordRequestDTO) {
-        return ResponseEntity.ok(recordService.createRecord(recordRequestDTO));
+        RecordResponseDTO rd = recordService.createRecord(recordRequestDTO);
+
+        return ResponseEntity.ok();
     }
 
     @GetMapping("/rank/{memberId}")

@@ -20,13 +20,13 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String recordId;
     private String memberId;
-    private Long runningDistance;
+    private Double runningDistance;
     private LocalTime runningTime;
     private Long runningStep;
     private LocalDate recordDate;
     private Double recordPace;
 
-    public Record(String memberId, Long runningDistance, LocalTime runningTime, Long runningStep, LocalDate recordDate, Double recordPace) {
+    public Record(String memberId, Double runningDistance, LocalTime runningTime, Long runningStep, LocalDate recordDate, Double recordPace) {
         this.memberId = memberId;
         this.runningDistance = runningDistance;
         this.runningTime = runningTime;
