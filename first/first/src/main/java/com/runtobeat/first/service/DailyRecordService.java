@@ -33,13 +33,13 @@ public class DailyRecordService {
         return dailyRecordRepository.save(dailyRecord);
     }
 
-    //스토리기록(Record) 에 기록이 하나 추가되면 동시에 dailyRecord값이 갱신된다 (더해진다 )
+    /*스토리기록(Record) 에 기록이 하나 추가되면 동시에 dailyRecord값이 갱신된다 (더해진다 )
     public List<DailyRecord> getDailyRecordByMemeberId(String memberId) {
         //DailyRecord 테이블에서 멤버 아이디에 해당하는 값들을 where 절로 가져오고
         // 날짜별로 내림차순 , 7개만 가져온다
     }
 
-    //ㅇDailyRecord 리스트에서 totalDistance를 가져
+    //ㅇDailyRecord 리스트에서 totalDistance를 가져 */
 
 
     public DailyRecord getDailyRecordByMemberId(String id) {
