@@ -25,7 +25,12 @@ public class WeeklyRecord {
     private Long weeklyRunningStep;
     private String weekYear;
 
-    public WeeklyRecord(Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
+    public WeeklyRecord(Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep) {
+        this.weeklyTotalDistance = weeklyTotalDistance;
+        this.weeklyTotalTime = weeklyTotalTime;
+        this.yearWeek = yearWeek;
+        this.weeklyRecordPace = weeklyRecordPace;
+        this.weeklyRunningStep = weeklyRunningStep;
     }
 
     public WeeklyRecord(String memberId, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep) {

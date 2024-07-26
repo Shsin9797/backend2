@@ -27,7 +27,8 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
-                monthlyRecord.getMonthlyRecordPace()
+                monthlyRecord.getMonthlyRecordPace(),
+                monthlyRecord.getMonthlyRunningStep()
         ));
     }
 
@@ -40,7 +41,8 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
-                monthlyRecord.getMonthlyRecordPace()
+                monthlyRecord.getMonthlyRecordPace(),
+                monthlyRecord.getMonthlyRunningStep()
         ));
     }
 
@@ -53,7 +55,8 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
-                monthlyRecord.getMonthlyRecordPace()
+                monthlyRecord.getMonthlyRecordPace(),
+                monthlyRecord.getMonthlyRunningStep()
         )).collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
@@ -67,7 +70,8 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
-                monthlyRecord.getMonthlyRecordPace()
+                monthlyRecord.getMonthlyRecordPace(),
+                monthlyRecord.getMonthlyRunningStep()
         ));
     }
 

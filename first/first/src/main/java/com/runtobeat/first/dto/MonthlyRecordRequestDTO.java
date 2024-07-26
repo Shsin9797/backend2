@@ -18,5 +18,6 @@ public class MonthlyRecordRequestDTO {
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
     private Long MonthlyRunningStep;
+    private  String monthYear;
 
 }

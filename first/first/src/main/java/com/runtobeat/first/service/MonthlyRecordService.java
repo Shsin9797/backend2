@@ -16,13 +16,13 @@ public class MonthlyRecordService {
 
     public MonthlyRecord createMonthlyRecord(MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord monthlyRecord = new MonthlyRecord(
-                null,
                 requestDTO.getMemberId(),
                 requestDTO.getMonthlyTotalDistance(),
                 requestDTO.getMonthlyTotalTime(),
                 requestDTO.getYearMonth(),
                 requestDTO.getMonthlyRecordPace(),
-                requestDTO.getMonthlyRunningStep()
+                requestDTO.getMonthlyRunningStep(),
+                requestDTO.getMonthYear()
         );
         return monthlyRecordRepository.save(monthlyRecord);
     }

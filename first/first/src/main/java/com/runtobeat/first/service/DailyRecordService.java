@@ -9,8 +9,7 @@ import com.runtobeat.first.repository.DailyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 import java.util.List;
 
 @Service
@@ -73,6 +72,7 @@ public class DailyRecordService {
     public DailyRecordResponseDTO fromEntity(DailyRecord dailyRecord) {
         return new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
+                dailyRecord.getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),

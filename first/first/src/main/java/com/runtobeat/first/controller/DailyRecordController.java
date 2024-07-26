@@ -23,6 +23,7 @@ public class DailyRecordController {
         DailyRecord dailyRecord = dailyRecordService.createDailyRecord(requestDTO);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
+                dailyRecord.getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -36,6 +37,7 @@ public class DailyRecordController {
         DailyRecord dailyRecord = dailyRecordService.getDailyRecordByMemberId(memberId);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
+                dailyRecord.getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -55,10 +57,12 @@ public class DailyRecordController {
         List<DailyRecord> dailyRecords = dailyRecordService.getAllDailyRecords();
         List<DailyRecordResponseDTO> responseDTOs = dailyRecords.stream().map(dailyRecord -> new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
+                dailyRecord.getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
-                dailyRecord.getDailyRecordPace()
+                dailyRecord.getDailyRecordPace(),
+                dailyRecord.getDailyRunningStep()
         )).collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
@@ -68,10 +72,12 @@ public class DailyRecordController {
         DailyRecord dailyRecord = dailyRecordService.updateDailyRecord(id, requestDTO);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
+                dailyRecord.getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
-                dailyRecord.getDailyRecordPace()
+                dailyRecord.getDailyRecordPace(),
+                dailyRecord.getDailyRunningStep()
         ));
     }
 
