@@ -26,7 +26,8 @@ public class DailyRecordController {
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
-                dailyRecord.getDailyRecordPace()
+                dailyRecord.getDailyRecordPace(),
+                dailyRecord.getDailyRunningStep()
         ));
     }
 
@@ -38,7 +39,8 @@ public class DailyRecordController {
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
-                dailyRecord.getDailyRecordPace()
+                dailyRecord.getDailyRecordPace(),
+                dailyRecord.getDailyRunningStep()
         ));
     }
 

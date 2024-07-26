@@ -10,9 +10,12 @@ import java.time.LocalTime;
 @Getter
 public class DailyRecordResponseDTO {
     private String dailyRecordId;
+    private String memberId;
     private Double dailyTotalDistance;
     private LocalTime dailyTotalTime;
     private LocalDate yearMonthDate;
     private Double dailyRecordPace;
+    private Long dailyRunningStep;
 
 }
+

@@ -16,7 +16,6 @@ public class WeeklyRecordService {
 
     public WeeklyRecord createWeeklyRecord(WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord weeklyRecord = new WeeklyRecord(
-                null,
                 requestDTO.getMemberId(),
                 requestDTO.getWeeklyTotalDistance(),
                 requestDTO.getWeeklyTotalTime(),

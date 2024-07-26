@@ -21,7 +21,8 @@ public class MonthlyRecordService {
                 requestDTO.getMonthlyTotalDistance(),
                 requestDTO.getMonthlyTotalTime(),
                 requestDTO.getYearMonth(),
-                requestDTO.getMonthlyRecordPace()
+                requestDTO.getMonthlyRecordPace(),
+                requestDTO.getMonthlyRunningStep()
         );
         return monthlyRecordRepository.save(monthlyRecord);
     }

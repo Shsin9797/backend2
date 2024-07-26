@@ -1,6 +1,7 @@
 package com.runtobeat.first.entity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,9 +17,10 @@ public class MonthlyRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String monthlyRecordId;
     private String memberId;
-    private Long monthlyTotalDistance;
-    private Long monthlyTotalTime;
+    private Double monthlyTotalDistance;
+    private LocalTime monthlyTotalTime;
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
+    private Long MonthlyRunningStep;
 
 }

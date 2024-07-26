@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @NoArgsConstructor
@@ -17,9 +18,32 @@ public class WeeklyRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String weeklyRecordId;
     private String memberId;
-    private Long weeklyTotalDistance;
-    private Long weeklyTotalTime;
+    private Double weeklyTotalDistance;
+    private LocalTime weeklyTotalTime;
     private LocalDate yearWeek;
     private Double weeklyRecordPace;
+    private Long weeklyRunningStep;
+    private String weekYear;
+
+    public WeeklyRecord(Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
+    }
+
+    public WeeklyRecord(String memberId, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep) {
+        this.memberId = memberId;
+        this.weeklyTotalDistance = weeklyTotalDistance;
+        this.weeklyTotalTime = weeklyTotalTime;
+        this.yearWeek = yearWeek;
+        this.weeklyRecordPace = weeklyRecordPace;
+        this.weeklyRunningStep = weeklyRunningStep;
+    }
+
+    public WeeklyRecord(Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
+        this.weeklyTotalDistance = weeklyTotalDistance;
+        this.weeklyTotalTime = weeklyTotalTime;
+        this.yearWeek = yearWeek;
+        this.weeklyRecordPace = weeklyRecordPace;
+        this.weeklyRunningStep = weeklyRunningStep;
+        this.weekYear = weekYear;
+    }
 
 }
