@@ -27,7 +27,8 @@ public class WeeklyRecordController {
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
-                weeklyRecord.getWeeklyRecordPace()
+                weeklyRecord.getWeeklyRecordPace(),
+                weeklyRecord.getWeeklyRunningStep()
         ));
     }
 
@@ -40,7 +41,8 @@ public class WeeklyRecordController {
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
-                weeklyRecord.getWeeklyRecordPace()
+                weeklyRecord.getWeeklyRecordPace(),
+                weeklyRecord.getWeeklyRunningStep()
         ));
     }
 
@@ -53,7 +55,8 @@ public class WeeklyRecordController {
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
-                weeklyRecord.getWeeklyRecordPace()
+                weeklyRecord.getWeeklyRecordPace(),
+                weeklyRecord.getWeeklyRunningStep()
         )).collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
@@ -67,7 +70,8 @@ public class WeeklyRecordController {
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
-                weeklyRecord.getWeeklyRecordPace()
+                weeklyRecord.getWeeklyRecordPace(),
+                weeklyRecord.getWeeklyRunningStep()
         ));
     }
 

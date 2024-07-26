@@ -24,9 +24,9 @@ public class RecordService {
                 recordRequestDTO.getMemberId(),
                 recordRequestDTO.getRunningDistance(),
                 recordRequestDTO.getRunningTime(),
-                recordRequestDTO.getRunningStep(),
                 recordRequestDTO.getRecordDate(),
-                recordRequestDTO.getRecordPace()
+                recordRequestDTO.getRecordPace(),
+                recordRequestDTO.getRunningStep()
         );
 
         Record savedRecord = recordRepository.save(record);
@@ -76,7 +76,7 @@ public class RecordService {
     }
 
 
-    public TodayRankingResponseDTO getMyRecordRanking(String memberId, String recordId) {
+    /* public TodayRankingResponseDTO getMyRecordRanking(String memberId, String recordId) {
 
         //'나'의 '이번' '레코드 기록'의 /  '오늘'의 '랭킹값' 가져오기 (sql 쿼리로 )
         Integer todayMyThisRanking = recordRepository.getToday
@@ -91,5 +91,5 @@ public class RecordService {
 
 
         return new TodayRankingResponseDTO(todayMyThisRanking,todayTotalUserAvgPace,todayTotalUserAvgPace);
-    }
+    } */
 }
