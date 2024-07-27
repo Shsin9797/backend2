@@ -4,6 +4,7 @@ import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.dto.WeeklyRecordRequestDTO;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.entity.WeeklyRecord;
+import com.runtobeat.first.repository.MemberRepository;
 import com.runtobeat.first.repository.WeeklyRecordJDBCRepository;
 import com.runtobeat.first.repository.WeeklyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,17 @@ public class WeeklyRecordService {
 
     private WeeklyRecordRepository weeklyRecordRepository;
     private WeeklyRecordJDBCRepository weeklyRecordJDBCRepository;
+    private MemberRepository memberRepository;
 
-    public WeeklyRecordService(WeeklyRecordRepository weeklyRecordRepository, WeeklyRecordJDBCRepository weeklyRecordJDBCRepository) {
+    public WeeklyRecordService(WeeklyRecordRepository weeklyRecordRepository, WeeklyRecordJDBCRepository weeklyRecordJDBCRepository, MemberRepository memberRepository) {
         this.weeklyRecordRepository = weeklyRecordRepository;
         this.weeklyRecordJDBCRepository = weeklyRecordJDBCRepository;
+        this.memberRepository = memberRepository;
     }
 
     public WeeklyRecord createWeeklyRecord(WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord weeklyRecord = new WeeklyRecord(
-                requestDTO.getMemberId(),
+                memberRepository.findById(requestDTO.getMemberId()).get(),
                 requestDTO.getWeeklyTotalDistance(),
                 requestDTO.getWeeklyTotalTime(),
                 requestDTO.getYearWeek(),
@@ -45,7 +48,7 @@ public class WeeklyRecordService {
 
     public WeeklyRecord updateWeeklyRecord(String id, WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord existingRecord = weeklyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
-        existingRecord.setMemberId(requestDTO.getMemberId());
+        existingRecord.getMember().setMemberId(requestDTO.getMemberId());
         existingRecord.setWeeklyTotalDistance(requestDTO.getWeeklyTotalDistance());
         existingRecord.setWeeklyTotalTime(requestDTO.getWeeklyTotalTime());
         existingRecord.setYearWeek(requestDTO.getYearWeek());

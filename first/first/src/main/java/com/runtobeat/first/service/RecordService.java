@@ -27,7 +27,7 @@ public class RecordService {
 
     public RecordResponseDTO createRecord(RecordRequestDTO recordRequestDTO) {
         Record record = new Record(
-                recordRequestDTO.getMemberId(),
+                memberService.getMemberEntity(recordRequestDTO.getMemberId()),
                 recordRequestDTO.getRunningDistance(),
                 recordRequestDTO.getRunningTime(),
                 recordRequestDTO.getRecordDate(),
@@ -61,7 +61,7 @@ public class RecordService {
     public RecordResponseDTO updateRecord(String id, RecordRequestDTO recordRequestDTO) {
         Record record = recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
 
-        record.setMemberId(recordRequestDTO.getMemberId());
+        record.setMember(memberService.getMemberEntity(recordRequestDTO.getMemberId()));
         record.setRunningDistance(recordRequestDTO.getRunningDistance());
         record.setRunningTime(recordRequestDTO.getRunningTime());
         record.setRunningStep(recordRequestDTO.getRunningStep());
@@ -79,7 +79,7 @@ public class RecordService {
     private RecordResponseDTO convertToResponseDTO(Record record) {
         return new RecordResponseDTO(
                 record.getRecordId(),
-                record.getMemberId(),
+                record.getMember().getMemberId(),
                 record.getRunningDistance(),
                 record.getRunningTime(),
                 record.getRecordDate(),

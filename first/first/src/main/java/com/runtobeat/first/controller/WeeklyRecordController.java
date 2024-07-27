@@ -22,7 +22,7 @@ public class WeeklyRecordController {
     public ResponseEntity<WeeklyRecordResponseDTO> createWeeklyRecord(@RequestBody WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord weeklyRecord = weeklyRecordService.createWeeklyRecord(requestDTO);
         return ResponseEntity.ok(new WeeklyRecordResponseDTO(
-                weeklyRecord.getMemberId(),
+                weeklyRecord.getMember().getMemberId(),
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
@@ -37,7 +37,7 @@ public class WeeklyRecordController {
         WeeklyRecord weeklyRecord = weeklyRecordService.getWeeklyRecordById(id);
         return ResponseEntity.ok(new WeeklyRecordResponseDTO(
                 weeklyRecord.getWeeklyRecordId(),
-                weeklyRecord.getMemberId(),
+                weeklyRecord.getMember().getMemberId(),
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
@@ -52,7 +52,7 @@ public class WeeklyRecordController {
         List<WeeklyRecord> weeklyRecords = weeklyRecordService.getAllWeeklyRecords();
         List<WeeklyRecordResponseDTO> responseDTOs = weeklyRecords.stream().map(weeklyRecord -> new WeeklyRecordResponseDTO(
                 weeklyRecord.getWeeklyRecordId(),
-                weeklyRecord.getMemberId(),
+                weeklyRecord.getMember().getMemberId(),
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
@@ -73,7 +73,7 @@ public class WeeklyRecordController {
         WeeklyRecord weeklyRecord = weeklyRecordService.updateWeeklyRecord(id, requestDTO);
         return ResponseEntity.ok(new WeeklyRecordResponseDTO(
                 weeklyRecord.getWeeklyRecordId(),
-                weeklyRecord.getMemberId(),
+                weeklyRecord.getMember().getMemberId(),
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),

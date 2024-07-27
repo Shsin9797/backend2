@@ -3,6 +3,7 @@ package com.runtobeat.first.service;
 import com.runtobeat.first.dto.MonthlyRecordRequestDTO;
 import com.runtobeat.first.entity.MonthlyRecord;
 import com.runtobeat.first.entity.Record;
+import com.runtobeat.first.repository.MemberRepository;
 import com.runtobeat.first.repository.MonthlyRecordJDBCRepository;
 import com.runtobeat.first.repository.MonthlyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,17 @@ public class MonthlyRecordService {
 
     private MonthlyRecordRepository monthlyRecordRepository;
     private MonthlyRecordJDBCRepository monthlyRecordJDBCRepository;
+    private MemberRepository memberRepository;
 
-    public MonthlyRecordService(MonthlyRecordRepository monthlyRecordRepository, MonthlyRecordJDBCRepository monthlyRecordJDBCRepository) {
+    public MonthlyRecordService(MonthlyRecordRepository monthlyRecordRepository, MonthlyRecordJDBCRepository monthlyRecordJDBCRepository, MemberRepository memberRepository) {
         this.monthlyRecordRepository = monthlyRecordRepository;
         this.monthlyRecordJDBCRepository = monthlyRecordJDBCRepository;
+        this.memberRepository = memberRepository;
     }
 
     public MonthlyRecord createMonthlyRecord(MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord monthlyRecord = new MonthlyRecord(
-                requestDTO.getMemberId(),
+                memberRepository.findById(requestDTO.getMemberId()).get(),
                 requestDTO.getMonthlyTotalDistance(),
                 requestDTO.getMonthlyTotalTime(),
                 requestDTO.getYearMonth(),
@@ -44,7 +47,7 @@ public class MonthlyRecordService {
 
     public MonthlyRecord updateMonthlyRecord(String id, MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord existingRecord = monthlyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
-        existingRecord.setMemberId(requestDTO.getMemberId());
+        existingRecord.getMember().setMemberId(requestDTO.getMemberId());
         existingRecord.setMonthlyTotalDistance(requestDTO.getMonthlyTotalDistance());
         existingRecord.setMonthlyTotalTime(requestDTO.getMonthlyTotalTime());
         existingRecord.setYearMonth(requestDTO.getYearMonth());

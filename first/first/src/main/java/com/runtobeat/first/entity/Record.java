@@ -19,15 +19,19 @@ public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String recordId;
-    private String memberId;
+
+    @ManyToOne
+    @JoinColumn(name = "memberId", referencedColumnName = "memberId")
+    private Member member;
+
     private Double runningDistance;
     private LocalTime runningTime;
     private LocalDate recordDate;
     private Double recordPace;
     private Long runningStep;
 
-    public Record(String memberId, Double runningDistance, LocalTime runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
-        this.memberId = memberId;
+    public Record(Member member, Double runningDistance, LocalTime runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
+        this.member = member;
         this.runningDistance = runningDistance;
         this.runningTime = runningTime;
         this.recordDate = recordDate;

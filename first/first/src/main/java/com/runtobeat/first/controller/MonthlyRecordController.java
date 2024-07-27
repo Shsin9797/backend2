@@ -22,7 +22,7 @@ public class MonthlyRecordController {
     public ResponseEntity<MonthlyRecordResponseDTO> createMonthlyRecord(@RequestBody MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord monthlyRecord = monthlyRecordService.createMonthlyRecord(requestDTO);
         return ResponseEntity.ok(new MonthlyRecordResponseDTO(
-                monthlyRecord.getMemberId(),
+                monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
@@ -37,7 +37,7 @@ public class MonthlyRecordController {
         MonthlyRecord monthlyRecord = monthlyRecordService.getMonthlyRecordById(id);
         return ResponseEntity.ok(new MonthlyRecordResponseDTO(
                 monthlyRecord.getMonthlyRecordId(),
-                monthlyRecord.getMemberId(),
+                monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
@@ -52,7 +52,7 @@ public class MonthlyRecordController {
         List<MonthlyRecord> monthlyRecords = monthlyRecordService.getAllMonthlyRecords();
         List<MonthlyRecordResponseDTO> responseDTOs = monthlyRecords.stream().map(monthlyRecord -> new MonthlyRecordResponseDTO(
                 monthlyRecord.getMonthlyRecordId(),
-                monthlyRecord.getMemberId(),
+                monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
@@ -73,7 +73,7 @@ public class MonthlyRecordController {
         MonthlyRecord monthlyRecord = monthlyRecordService.updateMonthlyRecord(id, requestDTO);
         return ResponseEntity.ok(new MonthlyRecordResponseDTO(
                 monthlyRecord.getMonthlyRecordId(),
-                monthlyRecord.getMemberId(),
+                monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),

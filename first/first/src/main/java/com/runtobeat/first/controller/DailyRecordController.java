@@ -22,7 +22,7 @@ public class DailyRecordController {
     public ResponseEntity<DailyRecordResponseDTO> createDailyRecord(@RequestBody DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = dailyRecordService.createDailyRecord(requestDTO);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -36,7 +36,7 @@ public class DailyRecordController {
         DailyRecord dailyRecord = dailyRecordService.getDailyRecordByMemberId(memberId);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -56,7 +56,7 @@ public class DailyRecordController {
         List<DailyRecord> dailyRecords = dailyRecordService.getAllDailyRecords();
         List<DailyRecordResponseDTO> responseDTOs = dailyRecords.stream().map(dailyRecord -> new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -76,7 +76,7 @@ public class DailyRecordController {
         DailyRecord dailyRecord = dailyRecordService.updateDailyRecord(id, requestDTO);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),

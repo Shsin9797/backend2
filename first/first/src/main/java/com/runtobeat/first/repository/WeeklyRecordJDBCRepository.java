@@ -46,7 +46,7 @@ public class WeeklyRecordJDBCRepository {
         if (existingRecord == null) {
             // If no existing record, create a new WeeklyRecord
             WeeklyRecord newRecord = new WeeklyRecord(
-                    record.getMemberId(),
+                    record.getMember(),
                     record.getRunningDistance(),
                     record.getRunningTime(),
                     record.getRecordDate(),

@@ -17,7 +17,11 @@ public class WeeklyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String weeklyRecordId;
-    private String memberId;
+
+    @ManyToOne
+    @JoinColumn(name = "memberId", referencedColumnName = "memberId")
+    private Member member;
+
     private Double weeklyTotalDistance;
     private LocalTime weeklyTotalTime;
     private LocalDate yearWeek;
@@ -25,8 +29,8 @@ public class WeeklyRecord {
     private Long weeklyRunningStep;
     private String weekYear;
 
-    public WeeklyRecord(String memberId, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
-        this.memberId = memberId;
+    public WeeklyRecord(Member member, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
+        this.member = member;
         this.weeklyTotalDistance = weeklyTotalDistance;
         this.weeklyTotalTime = weeklyTotalTime;
         this.yearWeek = yearWeek;

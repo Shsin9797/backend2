@@ -17,15 +17,20 @@ public class DailyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String dailyRecordId;
-    private String memberId;
+
+    @ManyToOne
+    @JoinColumn(name = "memberId", referencedColumnName = "memberId")
+    private Member member;
+
     private Double dailyTotalDistance;
     private LocalTime dailyTotalTime;
     private LocalDate yearMonthDate;
     private Double dailyRecordPace;
     private Long dailyRunningStep;
 
-    public DailyRecord(String memberId, Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
-        this.memberId = memberId;
+
+    public DailyRecord(Member member, Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
+        this.member=member;
         this.dailyTotalDistance = dailyTotalDistance;
         this.dailyTotalTime = dailyTotalTime;
         this.yearMonthDate = yearMonthDate;

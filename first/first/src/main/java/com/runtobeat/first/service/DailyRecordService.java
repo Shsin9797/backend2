@@ -7,6 +7,7 @@ import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.DailyRecordJDBCRepository;
 import com.runtobeat.first.repository.DailyRecordRepository;
+import com.runtobeat.first.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class DailyRecordService {
 
     @Autowired
     private DailyRecordRepository dailyRecordRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
     private DailyRecordService dailyRecordService;
@@ -26,7 +28,7 @@ public class DailyRecordService {
 
     public DailyRecord createDailyRecord(DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = new DailyRecord(
-                requestDTO.getMemberId(),
+                memberRepository.findById(requestDTO.getMemberId()).get(),
                 requestDTO.getDailyTotalDistance(),
                 requestDTO.getDailyTotalTime(),
                 requestDTO.getYearMonthDate(),
@@ -74,7 +76,7 @@ public class DailyRecordService {
     public DailyRecordResponseDTO fromEntity(DailyRecord dailyRecord) {
         return new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),

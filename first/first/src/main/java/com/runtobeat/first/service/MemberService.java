@@ -53,6 +53,10 @@ public class MemberService {
         );
     }
 
+    public Member getMemberEntity(String memberId) {
+        return memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+    }
+
     public List<MemberResponseDTO> getAllMembers() {
         return memberRepository.findAll().stream().map(member -> new MemberResponseDTO(
                 member.getMemberId(),
@@ -105,7 +109,7 @@ public class MemberService {
     }
 
     public void updateMemberRunningInfo(Record savedRecord) {
-        Member originMember = memberRepository.findById(savedRecord.getMemberId()).get();
+        Member originMember = memberRepository.findById(savedRecord.getMember().getMemberId()).get();
         Double newDistance = originMember.getTotalDistance() + savedRecord.getRunningDistance();
 
         LocalTime runningTime = savedRecord.getRunningTime();
