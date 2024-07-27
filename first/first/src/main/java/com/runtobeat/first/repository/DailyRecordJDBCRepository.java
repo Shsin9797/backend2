@@ -36,6 +36,7 @@ public class DailyRecordJDBCRepository {
         // dailyRunningStep <- runningStep
         if (existingRecord == null) {
             DailyRecord newRecord = new DailyRecord(
+                    record.getMemberId(),
                     record.getRunningDistance(),
                     record.getRunningTime(),
                     record.getRecordDate(),

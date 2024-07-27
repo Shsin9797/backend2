@@ -25,24 +25,8 @@ public class WeeklyRecord {
     private Long weeklyRunningStep;
     private String weekYear;
 
-    public WeeklyRecord(Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep) {
-        this.weeklyTotalDistance = weeklyTotalDistance;
-        this.weeklyTotalTime = weeklyTotalTime;
-        this.yearWeek = yearWeek;
-        this.weeklyRecordPace = weeklyRecordPace;
-        this.weeklyRunningStep = weeklyRunningStep;
-    }
-
-    public WeeklyRecord(String memberId, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep) {
+    public WeeklyRecord(String memberId, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
         this.memberId = memberId;
-        this.weeklyTotalDistance = weeklyTotalDistance;
-        this.weeklyTotalTime = weeklyTotalTime;
-        this.yearWeek = yearWeek;
-        this.weeklyRecordPace = weeklyRecordPace;
-        this.weeklyRunningStep = weeklyRunningStep;
-    }
-
-    public WeeklyRecord(Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
         this.weeklyTotalDistance = weeklyTotalDistance;
         this.weeklyTotalTime = weeklyTotalTime;
         this.yearWeek = yearWeek;
@@ -50,5 +34,4 @@ public class WeeklyRecord {
         this.weeklyRunningStep = weeklyRunningStep;
         this.weekYear = weekYear;
     }
-
 }

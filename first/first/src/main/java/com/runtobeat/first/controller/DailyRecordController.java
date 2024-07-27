@@ -22,7 +22,6 @@ public class DailyRecordController {
     public ResponseEntity<DailyRecordResponseDTO> createDailyRecord(@RequestBody DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = dailyRecordService.createDailyRecord(requestDTO);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
-                dailyRecord.getDailyRecordId(),
                 dailyRecord.getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),

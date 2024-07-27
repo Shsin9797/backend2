@@ -14,5 +14,12 @@ public class MemberRequestDTO {
     private String memberName;
     private Double totalDistance;
     private LocalTime totalTime;
-    private LocalTime avgPace;
+    private Double avgPace;
+
+    public MemberRequestDTO(String memberName, Double totalDistance, LocalTime totalTime, Double avgPace) {
+        this.memberName = memberName;
+        this.totalDistance = totalDistance;
+        this.totalTime = totalTime;
+        this.avgPace = avgPace;
+    }
 }

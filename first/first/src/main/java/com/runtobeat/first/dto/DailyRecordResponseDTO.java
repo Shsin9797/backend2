@@ -17,5 +17,13 @@ public class DailyRecordResponseDTO {
     private Double dailyRecordPace;
     private Long dailyRunningStep;
 
+    public DailyRecordResponseDTO(String memberId, Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
+        this.memberId = memberId;
+        this.dailyTotalDistance = dailyTotalDistance;
+        this.dailyTotalTime = dailyTotalTime;
+        this.yearMonthDate = yearMonthDate;
+        this.dailyRecordPace = dailyRecordPace;
+        this.dailyRunningStep = dailyRunningStep;
+    }
 }
 
