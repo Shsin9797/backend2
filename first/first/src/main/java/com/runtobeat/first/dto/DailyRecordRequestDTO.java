@@ -16,11 +16,13 @@ public class DailyRecordRequestDTO {
     private LocalDate yearMonthDate;
     private Double dailyRecordPace;
     private Long dailyRunningStep;
-    public DailyRecordRequestDTO( Double dailyTotalDistance, LocalTime dailyTotalTime, Long dailyRunningStep, LocalDate yearMonthDate, Double dailyRecordPace) {
+
+    public DailyRecordRequestDTO(String memberId, Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
+        this.memberId = memberId;
         this.dailyTotalDistance = dailyTotalDistance;
         this.dailyTotalTime = dailyTotalTime;
-        this.dailyRunningStep = dailyRunningStep;
         this.yearMonthDate = yearMonthDate;
         this.dailyRecordPace = dailyRecordPace;
+        this.dailyRunningStep = dailyRunningStep;
     }
 }

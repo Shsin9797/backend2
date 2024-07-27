@@ -40,6 +40,7 @@ public class MonthlyRecordJDBCRepository {
 
         if (existingRecord == null) {
             MonthlyRecord newRecord = new MonthlyRecord(
+                    record.getMemberId(),
                     record.getRunningDistance(),
                     record.getRunningTime(),
                     record.getRecordDate(),

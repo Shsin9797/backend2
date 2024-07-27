@@ -17,4 +17,15 @@ public class MonthlyRecordResponseDTO {
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
     private Long monthlyRunningStep;
+    private  String monthYear;
+
+    public MonthlyRecordResponseDTO(String memberId, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
+        this.memberId = memberId;
+        this.monthlyTotalDistance = monthlyTotalDistance;
+        this.monthlyTotalTime = monthlyTotalTime;
+        this.yearMonth = yearMonth;
+        this.monthlyRecordPace = monthlyRecordPace;
+        this.monthlyRunningStep = monthlyRunningStep;
+        this.monthYear = monthYear;
+    }
 }

@@ -20,6 +20,14 @@ public class MonthlyRecordRequestDTO {
     private Long MonthlyRunningStep;
     private  String monthYear;
 
-    public MonthlyRecordRequestDTO(String member1, double v, LocalTime of, String s, double v1, int i, String s1) {
+
+    public MonthlyRecordRequestDTO(String memberId, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
+        this.memberId = memberId;
+        this.monthlyTotalDistance = monthlyTotalDistance;
+        this.monthlyTotalTime = monthlyTotalTime;
+        this.yearMonth = yearMonth;
+        this.monthlyRecordPace = monthlyRecordPace;
+        MonthlyRunningStep = monthlyRunningStep;
+        this.monthYear = monthYear;
     }
 }

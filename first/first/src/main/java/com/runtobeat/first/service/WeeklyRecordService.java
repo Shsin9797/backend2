@@ -29,7 +29,8 @@ public class WeeklyRecordService {
                 requestDTO.getWeeklyTotalTime(),
                 requestDTO.getYearWeek(),
                 requestDTO.getWeeklyRecordPace(),
-                requestDTO.getWeeklyRunningStep()
+                requestDTO.getWeeklyRunningStep(),
+                requestDTO.getWeekYear()
         );
         return weeklyRecordRepository.save(weeklyRecord);
     }
