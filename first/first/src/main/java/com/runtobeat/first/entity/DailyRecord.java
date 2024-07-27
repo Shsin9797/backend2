@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Dailyrecord")
+@Table(name = "DailyRecord")
 @Getter
 @Setter
 public class DailyRecord {

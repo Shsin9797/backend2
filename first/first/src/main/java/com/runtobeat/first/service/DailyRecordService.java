@@ -2,7 +2,6 @@ package com.runtobeat.first.service;
 
 import com.runtobeat.first.dto.DailyRecordRequestDTO;
 import com.runtobeat.first.dto.DailyRecordResponseDTO;
-import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.DailyRecordJDBCRepository;
@@ -11,7 +10,6 @@ import com.runtobeat.first.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 
 @Service
@@ -19,11 +17,12 @@ public class DailyRecordService {
 
     @Autowired
     private DailyRecordRepository dailyRecordRepository;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
-    private DailyRecordService dailyRecordService;
-
     private DailyRecordJDBCRepository dailyRecordJDBCRepository;
 
     public DailyRecord createDailyRecord(DailyRecordRequestDTO requestDTO) {
@@ -69,8 +68,8 @@ public class DailyRecordService {
     }
 
     public List<DailyRecordResponseDTO> getDailyRecordListByMemberId(String memberId) {
-        List<DailyRecord> dailyRecordList = dailyRecordRepository.findAllByMemberId(memberId);
-        return dailyRecordList.stream().map(dailyRecordService::fromEntity).toList();
+        List<DailyRecord> dailyRecordList = dailyRecordRepository.findAllByMemberMemberId(memberId);
+        return dailyRecordList.stream().map(this::fromEntity).toList();
     }
 
     public DailyRecordResponseDTO fromEntity(DailyRecord dailyRecord) {
