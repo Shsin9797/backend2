@@ -41,18 +41,16 @@ public class DailyRecordJDBCRepository {
 
         // 추가적 으로 jpa 업데이트방법.. 찾아보기 .. .######
 
-        a.setDailyTotalDistance(a.getDailyTotalDistance()+record.getRunningDistance();
-        a.setDailyTotalTime(a.getDailyTotalTime()+ record.getRunningTime()); // 시간을 datetime을 초로 변경해서 저장해둬 해야할것같은데?-> 나중에 쓸때는 60으로 나눠서 시,분,초 구분하는걸로  #####
-        a.setDailyRecordPace(((a.getDailyTotalDistance()+record.getRunningDistance())/ (a.getDailyTotalTime()+ record.getRunningTime())));
+        a.setDailyTotalDistance(a.getDailyTotalDistance()+record.getRunningDistance());
+        //a.setDailyTotalTime(a.getDailyTotalTime()+ record.getRunningTime()); // 시간을 datetime을 초로 변경해서 저장해둬 해야할것같은데?-> 나중에 쓸때는 60으로 나눠서 시,분,초 구분하는걸로  #####
+        //a.setDailyRecordPace(((a.getDailyTotalDistance()+record.getRunningDistance())/ (a.getDailyTotalTime()+ record.getRunningTime())));
         a.setDailyRunningStep(a.getDailyRunningStep() + record.getRunningStep());
-
-        //
-        """ ㅡ쓰레기 코드 dailyRecordRepository.update(
-                new DailyRecord(a.getDailyRecordId(),//그대로
-                        a.getDailyTotalDistance()+record.getRunningDistance(), //합산
-                        a.getDailyTotalTime()+ record.getRunningTime(), //합산
-                        record.getRecordDate(), // 그대로
-                        ((a.getDailyTotalDistance()+record.getRunningDistance())/ (a.getDailyTotalTime()+ record.getRunningTime())), // 평균
-                        record.getRunningStep()) // 합산 );"""
+//        """ ㅡ쓰레기 코드 dailyRecordRepository.update(
+//                new DailyRecord(a.getDailyRecordId(),//그대로
+//                        a.getDailyTotalDistance()+record.getRunningDistance(), //합산
+//                        a.getDailyTotalTime()+ record.getRunningTime(), //합산
+//                        record.getRecordDate(), // 그대로
+//                        ((a.getDailyTotalDistance()+record.getRunningDistance())/ (a.getDailyTotalTime()+ record.getRunningTime())), // 평균
+//                        record.getRunningStep()) // 합산 );"""
     }
 }

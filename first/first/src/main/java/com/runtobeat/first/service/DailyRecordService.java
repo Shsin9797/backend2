@@ -2,6 +2,7 @@ package com.runtobeat.first.service;
 
 import com.runtobeat.first.dto.DailyRecordRequestDTO;
 import com.runtobeat.first.dto.DailyRecordResponseDTO;
+import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.DailyRecordJDBCRepository;
@@ -34,10 +35,10 @@ public class DailyRecordService {
     }
 
     //스토리기록(Record) 에 기록이 하나 추가되면 동시에 dailyRecord값이 갱신된다 (더해진다 )
-    public List<DailyRecord> getDailyRecordByMemeberId(String memberId) {
+    //public List<DailyRecord> getDailyRecordByMemeberId(String memberId) {
         //DailyRecord 테이블에서 멤버 아이디에 해당하는 값들을 where 절로 가져오고
         // 날짜별로 내림차순 , 7개만 가져온다
-    }
+    //}
 
     //ㅇDailyRecord 리스트에서 totalDistance를 가져
 
@@ -78,5 +79,16 @@ public class DailyRecordService {
 
     public void updateDailyRecord(Record savedRecord) {
         dailyRecordJDBCRepository.save(savedRecord);
+    }
+
+    //이부분 만들어진거찾기
+    public void updateDailyRecord(RecordResponseDTO rd) {
+
+        Record newRecord = new Record(
+                rd.getRecordId(),rd.getMemberId(),
+                rd.getRunningDistance(),rd.getRunningTime(),
+                rd.getRunningStep(),rd.getRecordDate(),rd.getRecordPace());
+
+        updateDailyRecord(newRecord);
     }
 }

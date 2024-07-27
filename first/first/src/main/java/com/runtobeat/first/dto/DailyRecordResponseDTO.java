@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @Getter
 public class DailyRecordResponseDTO {
     private String dailyRecordId;
     private Double dailyTotalDistance;
-    private Double dailyTotalTime;
+    private LocalTime dailyTotalTime;
     private LocalDate yearMonthDate;
     private Double dailyRecordPace;
 

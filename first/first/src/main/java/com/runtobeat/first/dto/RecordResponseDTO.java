@@ -14,9 +14,13 @@ import java.time.LocalTime;
 public class RecordResponseDTO {
     private String recordId;
     private String memberId;
-    private Long runningDistance;
+    private Double runningDistance;
     private LocalTime runningTime;
     private Long runningStep;
     private LocalDate recordDate;
     private Double recordPace;
+
+    public RecordResponseDTO() {
+
+    }
 }

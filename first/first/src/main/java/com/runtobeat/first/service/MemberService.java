@@ -2,11 +2,14 @@ package com.runtobeat.first.service;
 
 import com.runtobeat.first.dto.MemberRequestDTO;
 import com.runtobeat.first.dto.MemberResponseDTO;
+import com.runtobeat.first.dto.MypageTotalRunningInfoResponseDTO;
+import com.runtobeat.first.dto.RecordRequestDTO;
 import com.runtobeat.first.entity.Member;
 import com.runtobeat.first.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,7 +79,28 @@ public class MemberService {
         );
     }
 
+    public MemberResponseDTO updateMember(String memberId, RecordRequestDTO recordRequestDTO) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
+        member.setTotalDistance(member.getTotalDistance()+recordRequestDTO.getRunningDistance());
+        LocalTime time = recordRequestDTO.getRunningTime();
+        member.setTotalTime(member.getTotalTime().plusHours(time.getHour()).plusMinutes(time.getMinute()).plusSeconds(time.getSecond()));
+        member.setAvgPace(recordRequestDTO.getRecordPace());
+        Member updatedMember = memberRepository.save(member);
+        return new MemberResponseDTO(
+                updatedMember.getMemberId(),
+                updatedMember.getMemberName(),
+                updatedMember.getTotalDistance(),
+                updatedMember.getTotalTime(),
+                updatedMember.getAvgPace()
+        );
+    }
+
     public void deleteMember(String memberId) {
         memberRepository.deleteById(memberId);
+    }
+
+    public MypageTotalRunningInfoResponseDTO getMemberRunningInfo(String memberId) {
+        Member member = memberRepository.findById(memberId).get();
+        return new MypageTotalRunningInfoResponseDTO(member.getTotalDistance(),member.getAvgPace());
     }
 }

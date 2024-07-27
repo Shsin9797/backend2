@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +21,6 @@ public class Member {
     private String memberId;
     private String memberName;
     private Double totalDistance; // 타입확인
-    private Double totalTime; // 타입확인
+    private LocalTime totalTime; // 타입확인
     private Double avgPace;
 }
