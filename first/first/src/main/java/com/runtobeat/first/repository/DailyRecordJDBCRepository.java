@@ -62,7 +62,7 @@ public class DailyRecordJDBCRepository {
         // Get today's date
         LocalDate today = LocalDate.now();
         // Query to calculate the average distance for today
-        String sql = "SELECT AVG(distance) FROM Dailyrecord WHERE DATE(yearMonthDate) = ?";
+        String sql = "SELECT AVG(dailyTotalDistance) FROM DailyRecord WHERE DATE(yearMonthDate) = ?";
         // Execute the query and return the average distance
         return jdbcTemplate.queryForObject(sql, new Object[]{today}, Double.class);
     }
