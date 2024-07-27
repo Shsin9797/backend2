@@ -14,5 +14,5 @@ public class MemberRequestDTO {
     private String memberName;
     private Double totalDistance;
     private LocalTime totalTime;
-    private LocalTime avgPace;
+    private Double avgPace;
 }

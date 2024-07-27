@@ -61,10 +61,9 @@ public class WeeklyRecordJDBCRepository {
             long totalNewSeconds = toSeconds(record.getRunningTime());
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
             existingRecord.setWeeklyTotalTime(toLocalTime(updateTotalSeconds));
-
             double newTotalDistance = existingRecord.getWeeklyTotalDistance();
-            double newTotalTimeInHours = (double) updateTotalSeconds / 3600.0;
-            existingRecord.setWeeklyRecordPace(newTotalDistance / newTotalTimeInHours);
+            existingRecord.setWeeklyRecordPace(updateTotalSeconds /newTotalDistance);
+
             existingRecord.setWeeklyRunningStep(existingRecord.getWeeklyRunningStep() + record.getRunningStep());
 
             weeklyRecordRepository.save(existingRecord);

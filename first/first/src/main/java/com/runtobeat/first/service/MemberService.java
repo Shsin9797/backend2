@@ -114,11 +114,14 @@ public class MemberService {
                 .plusMinutes(runningTime.getMinute())
                 .plusSeconds(runningTime.getSecond());
 
-        Double newPaceDouble = (newTime.getHour()*60 + newTime.getMinute() + newTime.getSecond()/60.0) / newDistance ;
-        LocalTime newPace = new LocalTime(newPaceDouble/60 ,(newPaceDouble%60)/10,(newPaceDouble%60)%60,);
+        Double newPaceDouble = (newTime.getHour()*3600 + newTime.getMinute()*60 + newTime.getSecond()) / newDistance ;
+
         originMember.setTotalDistance(newDistance);
         originMember.setTotalTime(newTime);
-        originMember.setAvgPace(newPace);
+        originMember.setAvgPace(newPaceDouble);
+
         memberRepository.save(originMember);
     }
+
+
 }

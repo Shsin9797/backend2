@@ -23,10 +23,10 @@ public class Record {
     private Double runningDistance;
     private LocalTime runningTime;
     private LocalDate recordDate;
-    private LocalTime recordPace;
+    private Double recordPace;
     private Long runningStep;
 
-    public Record(String memberId, Double runningDistance, LocalTime runningTime, LocalDate recordDate, LocalTime recordPace, Long runningStep) {
+    public Record(String memberId, Double runningDistance, LocalTime runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
         this.memberId = memberId;
         this.runningDistance = runningDistance;
         this.runningTime = runningTime;

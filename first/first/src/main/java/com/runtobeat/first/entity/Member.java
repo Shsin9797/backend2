@@ -21,9 +21,9 @@ public class Member {
     private String memberName;
     private Double totalDistance; // 타입확인
     private LocalTime totalTime; // 타입확인
-    private LocalTime avgPace;
+    private Double avgPace;
 
-    public Member(String memberName, Double totalDistance, LocalTime totalTime, LocalTime avgPace) {
+    public Member(String memberName, Double totalDistance, LocalTime totalTime, Double avgPace) {
         this.memberName = memberName;
         this.totalDistance = totalDistance;
         this.totalTime = totalTime;

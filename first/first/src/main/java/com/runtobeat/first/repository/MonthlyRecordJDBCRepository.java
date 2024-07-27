@@ -57,7 +57,7 @@ public class MonthlyRecordJDBCRepository {
 
             double newTotalDistance = existingRecord.getMonthlyTotalDistance();
             double newTotalTimeInHours = (double) updateTotalSeconds / 3600.0;
-            existingRecord.setMonthlyRecordPace(newTotalDistance / newTotalTimeInHours);
+            existingRecord.setMonthlyRecordPace(updateTotalSeconds/newTotalDistance);
             existingRecord.setMonthlyRunningStep(existingRecord.getMonthlyRunningStep() + record.getRunningStep());
 
             monthlyRecordRepository.save(existingRecord);

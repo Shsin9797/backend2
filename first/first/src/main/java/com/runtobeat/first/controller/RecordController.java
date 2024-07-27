@@ -35,13 +35,13 @@ public class RecordController {
         return ResponseEntity.ok(rd);
     }
 
-    @GetMapping("/rank/{memberId}")
+    @GetMapping("/rank/{memberId}") //해당하는 멤버의 랭킹 가져오기
     public ResponseEntity<TodayRankingResponseDTO> getMyRanking(@PathVariable String memberId, @RequestParam String recordId) {
         TodayRankingResponseDTO ranking = recordService.getMyRecordRanking(memberId, recordId);
         return ResponseEntity.ok(ranking);
     }
 
-    @GetMapping("/mypage/total-running-info/{memberId}")
+    @GetMapping("/mypage/total-running-info/{memberId}") //마이페이지에서 총 달린거리와 평균 페이스 가져오기
     public ResponseEntity<MypageTotalRunningInfoResponseDTO> getMypageTotalRunningInfo(@PathVariable String memberId) {
         MypageTotalRunningInfoResponseDTO myRunningInfo = memberService.getMemberRunningInfo(memberId);
         return ResponseEntity.ok(myRunningInfo);
