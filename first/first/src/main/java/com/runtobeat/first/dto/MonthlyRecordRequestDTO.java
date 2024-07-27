@@ -20,4 +20,6 @@ public class MonthlyRecordRequestDTO {
     private Long MonthlyRunningStep;
     private  String monthYear;
 
+    public MonthlyRecordRequestDTO(String member1, double v, LocalTime of, String s, double v1, int i, String s1) {
+    }
 }
