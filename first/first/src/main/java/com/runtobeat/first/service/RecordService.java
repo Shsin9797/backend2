@@ -9,6 +9,7 @@ import com.runtobeat.first.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +26,9 @@ public class RecordService {
                 recordRequestDTO.getMemberId(),
                 recordRequestDTO.getRunningDistance(),
                 recordRequestDTO.getRunningTime(),
-                recordRequestDTO.getRunningStep(),
                 recordRequestDTO.getRecordDate(),
-                recordRequestDTO.getRecordPace()
+                recordRequestDTO.getRecordPace(),
+                recordRequestDTO.getRunningStep()
         );
 
         Record savedRecord = recordRepository.save(record);

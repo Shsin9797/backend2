@@ -22,16 +22,16 @@ public class Record {
     private String memberId;
     private Double runningDistance;
     private LocalTime runningTime;
-    private Long runningStep;
     private LocalDate recordDate;
     private Double recordPace;
+    private Long runningStep;
 
-    public Record(String memberId, Double runningDistance, LocalTime runningTime, Long runningStep, LocalDate recordDate, Double recordPace) {
+    public Record(String memberId, Double runningDistance, LocalTime runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
         this.memberId = memberId;
         this.runningDistance = runningDistance;
         this.runningTime = runningTime;
-        this.runningStep = runningStep;
         this.recordDate = recordDate;
         this.recordPace = recordPace;
+        this.runningStep = runningStep;
     }
 }

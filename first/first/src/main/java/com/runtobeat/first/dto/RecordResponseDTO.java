@@ -1,6 +1,5 @@
 package com.runtobeat.first.dto;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

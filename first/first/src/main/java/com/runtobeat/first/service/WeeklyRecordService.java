@@ -18,12 +18,12 @@ public class WeeklyRecordService {
 
     public WeeklyRecord createWeeklyRecord(WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord weeklyRecord = new WeeklyRecord(
-                null,
                 requestDTO.getMemberId(),
                 requestDTO.getWeeklyTotalDistance(),
                 requestDTO.getWeeklyTotalTime(),
                 requestDTO.getYearWeek(),
-                requestDTO.getWeeklyRecordPace()
+                requestDTO.getWeeklyRecordPace(),
+                requestDTO.getWeeklyRunningStep()
         );
         return weeklyRecordRepository.save(weeklyRecord);
     }
