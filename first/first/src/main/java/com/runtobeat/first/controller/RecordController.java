@@ -32,14 +32,6 @@ public class RecordController {
     @PostMapping // api 명세서 1번
     public ResponseEntity<RecordResponseDTO> createRecord(@RequestBody RecordRequestDTO recordRequestDTO) {
         RecordResponseDTO rd = recordService.createRecord(recordRequestDTO);
-        // member 업데이트
-        memberService.updateMember(recordRequestDTO.getMemberId(),recordRequestDTO);
-        //daily 업데이트
-        dailyRecordService.updateDailyRecord(rd);
-        // weekly 업데이트
-        weeklyRecordService.updateWeeklyRecord(rd);
-        //monthly 업데이트
-        monthlyRecordService.updateMonthlyRecord(rd);
         return ResponseEntity.ok(rd);
     }
 

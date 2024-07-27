@@ -13,5 +13,5 @@ public class MemberResponseDTO {
     private String memberName;
     private Double totalDistance;
     private LocalTime totalTime;
-    private Double avgPace;
+    private LocalTime avgPace;
 }

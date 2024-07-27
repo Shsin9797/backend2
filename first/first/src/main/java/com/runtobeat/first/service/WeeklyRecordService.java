@@ -4,6 +4,7 @@ import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.dto.WeeklyRecordRequestDTO;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.entity.WeeklyRecord;
+import com.runtobeat.first.repository.WeeklyRecordJDBCRepository;
 import com.runtobeat.first.repository.WeeklyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,13 @@ import java.util.List;
 @Service
 public class WeeklyRecordService {
 
-    @Autowired
     private WeeklyRecordRepository weeklyRecordRepository;
+    private WeeklyRecordJDBCRepository weeklyRecordJDBCRepository;
+
+    public WeeklyRecordService(WeeklyRecordRepository weeklyRecordRepository, WeeklyRecordJDBCRepository weeklyRecordJDBCRepository) {
+        this.weeklyRecordRepository = weeklyRecordRepository;
+        this.weeklyRecordJDBCRepository = weeklyRecordJDBCRepository;
+    }
 
     public WeeklyRecord createWeeklyRecord(WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord weeklyRecord = new WeeklyRecord(
@@ -46,17 +52,12 @@ public class WeeklyRecordService {
         return weeklyRecordRepository.save(existingRecord);
     }
 
+    public void updateWeeklyRecord(Record savedRecord) {
+        weeklyRecordJDBCRepository.save(savedRecord);
+    }
+
     public void deleteWeeklyRecord(String id) {
         weeklyRecordRepository.deleteById(id);
     }
-    //이부분 만들어둔거 찾기
-    public void updateWeeklyRecord(RecordResponseDTO rd) {
 
-        Record newRecord = new Record(
-                rd.getRecordId(),rd.getMemberId(),
-                rd.getRunningDistance(),rd.getRunningTime(),
-                rd.getRunningStep(),rd.getRecordDate(),rd.getRecordPace());
-
-        updateWeeklyRecord(newRecord);
-    }
 }

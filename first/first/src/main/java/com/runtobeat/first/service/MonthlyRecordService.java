@@ -2,6 +2,8 @@ package com.runtobeat.first.service;
 
 import com.runtobeat.first.dto.MonthlyRecordRequestDTO;
 import com.runtobeat.first.entity.MonthlyRecord;
+import com.runtobeat.first.entity.Record;
+import com.runtobeat.first.repository.MonthlyRecordJDBCRepository;
 import com.runtobeat.first.repository.MonthlyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +13,13 @@ import java.util.List;
 @Service
 public class MonthlyRecordService {
 
-    @Autowired
     private MonthlyRecordRepository monthlyRecordRepository;
+    private MonthlyRecordJDBCRepository monthlyRecordJDBCRepository;
+
+    public MonthlyRecordService(MonthlyRecordRepository monthlyRecordRepository, MonthlyRecordJDBCRepository monthlyRecordJDBCRepository) {
+        this.monthlyRecordRepository = monthlyRecordRepository;
+        this.monthlyRecordJDBCRepository = monthlyRecordJDBCRepository;
+    }
 
     public MonthlyRecord createMonthlyRecord(MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord monthlyRecord = new MonthlyRecord(
@@ -43,6 +50,10 @@ public class MonthlyRecordService {
         existingRecord.setYearMonth(requestDTO.getYearMonth());
         existingRecord.setMonthlyRecordPace(requestDTO.getMonthlyRecordPace());
         return monthlyRecordRepository.save(existingRecord);
+    }
+
+    public void updateMonthlyRecord(Record savedRecord) {
+        monthlyRecordJDBCRepository.save(savedRecord);
     }
 
     public void deleteMonthlyRecord(String id) {
