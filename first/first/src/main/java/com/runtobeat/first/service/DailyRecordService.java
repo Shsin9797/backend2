@@ -2,6 +2,7 @@ package com.runtobeat.first.service;
 
 import com.runtobeat.first.dto.DailyRecordRequestDTO;
 import com.runtobeat.first.dto.DailyRecordResponseDTO;
+import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.DailyRecordJDBCRepository;
@@ -83,5 +84,16 @@ public class DailyRecordService {
 
     public void updateDailyRecord(Record savedRecord) {
         dailyRecordJDBCRepository.save(savedRecord);
+    }
+
+    //이부분 만들어진거찾기
+    public void updateDailyRecord(RecordResponseDTO rd) {
+
+        Record newRecord = new Record(
+                rd.getRecordId(),rd.getMemberId(),
+                rd.getRunningDistance(),rd.getRunningTime(),
+                rd.getRunningStep(),rd.getRecordDate(),rd.getRecordPace());
+
+        updateDailyRecord(newRecord);
     }
 }

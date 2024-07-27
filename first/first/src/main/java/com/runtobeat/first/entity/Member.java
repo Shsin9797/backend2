@@ -20,7 +20,7 @@ public class Member {
     private String memberId;
     private String memberName;
     private Double totalDistance; // 타입확인
-    private Double totalTime; // 타입확인
+    private LocalTime totalTime; // 타입확인
     private Double avgPace;
 
     public Member(String member1, String johnDoe, double totalDistance, LocalTime of, double avgPace) {

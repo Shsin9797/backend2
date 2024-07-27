@@ -18,4 +18,8 @@ public class RecordResponseDTO {
     private Long runningStep;
     private LocalDate recordDate;
     private Double recordPace;
+
+    public RecordResponseDTO() {
+
+    }
 }

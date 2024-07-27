@@ -1,6 +1,8 @@
 package com.runtobeat.first.service;
 
+import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.dto.WeeklyRecordRequestDTO;
+import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.entity.WeeklyRecord;
 import com.runtobeat.first.repository.WeeklyRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +48,15 @@ public class WeeklyRecordService {
 
     public void deleteWeeklyRecord(String id) {
         weeklyRecordRepository.deleteById(id);
+    }
+    //이부분 만들어둔거 찾기
+    public void updateWeeklyRecord(RecordResponseDTO rd) {
+
+        Record newRecord = new Record(
+                rd.getRecordId(),rd.getMemberId(),
+                rd.getRunningDistance(),rd.getRunningTime(),
+                rd.getRunningStep(),rd.getRecordDate(),rd.getRecordPace());
+
+        updateWeeklyRecord(newRecord);
     }
 }
