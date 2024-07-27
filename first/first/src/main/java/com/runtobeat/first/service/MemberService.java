@@ -5,6 +5,7 @@ import com.runtobeat.first.dto.MemberResponseDTO;
 import com.runtobeat.first.dto.MypageTotalRunningInfoResponseDTO;
 import com.runtobeat.first.dto.RecordRequestDTO;
 import com.runtobeat.first.entity.Member;
+import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,6 @@ public class MemberService {
         )).collect(Collectors.toList());
     }
 
-    // 사용자 업데이트가 필요한지 고민해봐야 함
     public MemberResponseDTO updateMember(String memberId, MemberRequestDTO memberRequestDTO) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
         member.setMemberName(memberRequestDTO.getMemberName());
@@ -81,7 +81,7 @@ public class MemberService {
 
     public MemberResponseDTO updateMember(String memberId, RecordRequestDTO recordRequestDTO) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
-        member.setTotalDistance(member.getTotalDistance()+recordRequestDTO.getRunningDistance());
+        member.setTotalDistance(member.getTotalDistance() + recordRequestDTO.getRunningDistance());
         LocalTime time = recordRequestDTO.getRunningTime();
         member.setTotalTime(member.getTotalTime().plusHours(time.getHour()).plusMinutes(time.getMinute()).plusSeconds(time.getSecond()));
         member.setAvgPace(recordRequestDTO.getRecordPace());
@@ -101,6 +101,24 @@ public class MemberService {
 
     public MypageTotalRunningInfoResponseDTO getMemberRunningInfo(String memberId) {
         Member member = memberRepository.findById(memberId).get();
-        return new MypageTotalRunningInfoResponseDTO(member.getTotalDistance(),member.getAvgPace());
+        return new MypageTotalRunningInfoResponseDTO(member.getTotalDistance(), member.getAvgPace());
+    }
+
+    public void updateMemberRunningInfo(Record savedRecord) {
+        Member originMember = memberRepository.findById(savedRecord.getMemberId()).get();
+        Double newDistance = originMember.getTotalDistance() + savedRecord.getRunningDistance();
+
+        LocalTime runningTime = savedRecord.getRunningTime();
+        LocalTime newTime = originMember.getTotalTime()
+                .plusHours(runningTime.getHour())
+                .plusMinutes(runningTime.getMinute())
+                .plusSeconds(runningTime.getSecond());
+
+        Double newPaceDouble = (newTime.getHour()*60 + newTime.getMinute() + newTime.getSecond()/60.0) / newDistance ;
+        LocalTime newPace = new LocalTime(newPaceDouble/60 ,(newPaceDouble%60)/10,(newPaceDouble%60)%60,);
+        originMember.setTotalDistance(newDistance);
+        originMember.setTotalTime(newTime);
+        originMember.setAvgPace(newPace);
+        memberRepository.save(originMember);
     }
 }

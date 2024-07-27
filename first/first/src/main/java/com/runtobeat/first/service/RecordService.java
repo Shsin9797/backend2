@@ -18,7 +18,11 @@ import java.util.stream.Collectors;
 public class RecordService {
 
     private final RecordRepository recordRepository;
+    private final MemberService memberService;
     private final DailyRecordService dailyRecordService;
+    private final WeeklyRecordService weeklyRecordService;
+    private final MonthlyRecordService monthlyRecordService;
+
     private final RecordJDBCRepository recordJDBCRepository;
 
     public RecordResponseDTO createRecord(RecordRequestDTO recordRequestDTO) {
@@ -32,7 +36,14 @@ public class RecordService {
         );
 
         Record savedRecord = recordRepository.save(record);
+        // member 업데이트
+        memberService.updateMember(savedRecord);
+        //daily 업데이트
         dailyRecordService.updateDailyRecord(savedRecord);
+        // weekly 업데이트
+        weeklyRecordService.updateWeeklyRecord(savedRecord);
+        //monthly 업데이트
+        monthlyRecordService.updateMonthlyRecord(savedRecord);
         return convertToResponseDTO(savedRecord);
     }
 

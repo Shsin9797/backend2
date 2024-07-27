@@ -21,8 +21,12 @@ public class Member {
     private String memberName;
     private Double totalDistance; // 타입확인
     private LocalTime totalTime; // 타입확인
-    private Double avgPace;
+    private LocalTime avgPace;
 
-    public Member(String member1, String johnDoe, double totalDistance, LocalTime of, double avgPace) {
+    public Member(String memberName, Double totalDistance, LocalTime totalTime, LocalTime avgPace) {
+        this.memberName = memberName;
+        this.totalDistance = totalDistance;
+        this.totalTime = totalTime;
+        this.avgPace = avgPace;
     }
 }
