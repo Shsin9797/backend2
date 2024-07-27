@@ -22,13 +22,13 @@ public class MonthlyRecordController {
     public ResponseEntity<MonthlyRecordResponseDTO> createMonthlyRecord(@RequestBody MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord monthlyRecord = monthlyRecordService.createMonthlyRecord(requestDTO);
         return ResponseEntity.ok(new MonthlyRecordResponseDTO(
-                monthlyRecord.getMonthlyRecordId(),
                 monthlyRecord.getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
                 monthlyRecord.getMonthlyRecordPace(),
-                monthlyRecord.getMonthlyRunningStep()
+                monthlyRecord.getMonthlyRunningStep(),
+                monthlyRecord.getMonthYear()
         ));
     }
 
@@ -42,7 +42,8 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
                 monthlyRecord.getMonthlyRecordPace(),
-                monthlyRecord.getMonthlyRunningStep()
+                monthlyRecord.getMonthlyRunningStep(),
+                monthlyRecord.getMonthYear()
         ));
     }
 
@@ -56,7 +57,8 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
                 monthlyRecord.getMonthlyRecordPace(),
-                monthlyRecord.getMonthlyRunningStep()
+                monthlyRecord.getMonthlyRunningStep(),
+                monthlyRecord.getMonthYear()
         )).collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
@@ -71,7 +73,8 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
                 monthlyRecord.getMonthlyRecordPace(),
-                monthlyRecord.getMonthlyRunningStep()
+                monthlyRecord.getMonthlyRunningStep(),
+                monthlyRecord.getMonthYear()
         ));
     }
 

@@ -26,6 +26,7 @@ public class DailyRecordService {
 
     public DailyRecord createDailyRecord(DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = new DailyRecord(
+                requestDTO.getMemberId(),
                 requestDTO.getDailyTotalDistance(),
                 requestDTO.getDailyTotalTime(),
                 requestDTO.getYearMonthDate(),
