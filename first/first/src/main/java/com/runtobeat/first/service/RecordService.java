@@ -82,10 +82,10 @@ public class RecordService {
                 record.getMemberId(),
                 record.getRunningDistance(),
                 record.getRunningTime(),
-                record.getRunningStep(),
                 record.getRecordDate(),
-                record.getRecordPace()
-        );
+                record.getRecordPace(),
+                record.getRunningStep()
+                );
     }
 
     public TodayRankingResponseDTO getMyRecordRanking(String memberId, String recordId) {

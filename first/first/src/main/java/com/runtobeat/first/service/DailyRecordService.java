@@ -86,4 +86,8 @@ public class DailyRecordService {
     public void updateDailyRecord(Record savedRecord) {
         dailyRecordJDBCRepository.save(savedRecord);
     }
+
+    public Double getTodayAvgDistance() {
+        return dailyRecordJDBCRepository.getTodayAvgDistance();
+    }
 }

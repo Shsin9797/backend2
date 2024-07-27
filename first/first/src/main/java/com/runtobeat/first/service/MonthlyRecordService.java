@@ -59,4 +59,8 @@ public class MonthlyRecordService {
     public void deleteMonthlyRecord(String id) {
         monthlyRecordRepository.deleteById(id);
     }
+
+    public Double getThisMonthAvgDistance() {
+        return monthlyRecordJDBCRepository.getThisMonthAvgDistance();
+    }
 }

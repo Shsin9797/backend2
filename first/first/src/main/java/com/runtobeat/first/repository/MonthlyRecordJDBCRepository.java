@@ -55,13 +55,23 @@ public class MonthlyRecordJDBCRepository {
             long totalNewSeconds = toSeconds(record.getRunningTime());
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
             existingRecord.setMonthlyTotalTime(toLocalTime(updateTotalSeconds));
-
             double newTotalDistance = existingRecord.getMonthlyTotalDistance();
-            double newTotalTimeInHours = (double) updateTotalSeconds / 3600.0;
             existingRecord.setMonthlyRecordPace(updateTotalSeconds/newTotalDistance);
             existingRecord.setMonthlyRunningStep(existingRecord.getMonthlyRunningStep() + record.getRunningStep());
 
             monthlyRecordRepository.save(existingRecord);
         }
+    }
+
+    public Double getThisMonthAvgDistance() {
+
+        // Get today's date
+        LocalDate today = LocalDate.now();
+        // Calculate the month-year string for today
+        String monthYear = getMonthYear(today);
+        // SQL query to calculate the average distance for the current month
+        String sql = "SELECT AVG(monthlyTotalDistance) FROM MonthlyRecord WHERE monthYear = ?";
+        // Execute the query and return the average distance
+        return jdbcTemplate.queryForObject(sql, new Object[]{monthYear}, Double.class);
     }
 }

@@ -63,6 +63,11 @@ public class WeeklyRecordController {
         return ResponseEntity.ok(responseDTOs);
     }
 
+    @GetMapping("/stats/avg/thisweek")
+    public ResponseEntity<Double> getThisWeekAvgDistance() {
+        return ResponseEntity.ok(weeklyRecordService.getThisWeekAvgDistance());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<WeeklyRecordResponseDTO> updateWeeklyRecord(@PathVariable String id, @RequestBody WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord weeklyRecord = weeklyRecordService.updateWeeklyRecord(id, requestDTO);

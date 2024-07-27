@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Repository
@@ -50,11 +51,19 @@ public class DailyRecordJDBCRepository {
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
             existingRecord.setDailyTotalTime(toLocalTime(updateTotalSeconds));
             double newTotalDistance = existingRecord.getDailyTotalDistance();
-            double newTotalTimeInHours = (double) updateTotalSeconds / 3600.0;
             existingRecord.setDailyRecordPace(updateTotalSeconds/newTotalDistance);
             existingRecord.setDailyRunningStep(existingRecord.getDailyRunningStep() + record.getRunningStep());
 
             dailyRecordRepository.save(existingRecord);
         }
+    }
+
+    public Double getTodayAvgDistance() {
+        // Get today's date
+        LocalDate today = LocalDate.now();
+        // Query to calculate the average distance for today
+        String sql = "SELECT AVG(distance) FROM Dailyrecord WHERE DATE(yearMonthDate) = ?";
+        // Execute the query and return the average distance
+        return jdbcTemplate.queryForObject(sql, new Object[]{today}, Double.class);
     }
 }

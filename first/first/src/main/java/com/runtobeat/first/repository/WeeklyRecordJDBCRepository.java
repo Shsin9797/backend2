@@ -70,4 +70,15 @@ public class WeeklyRecordJDBCRepository {
             weeklyRecordRepository.save(existingRecord);
         }
     }
+
+    public Double getThisWeekAvgDistance() {
+        // Get today's date
+        LocalDate today = LocalDate.now();
+        // Calculate the week year string for today
+        String weekYear = getWeekYear(today);
+        // SQL query to calculate the average distance for the current week
+        String sql = "SELECT AVG(weeklyTotalDistance) FROM WeeklyRecord WHERE weekYear = ?";
+        // Execute the query and return the average distance
+        return jdbcTemplate.queryForObject(sql, new Object[]{weekYear}, Double.class);
+    }
 }

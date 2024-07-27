@@ -66,6 +66,11 @@ public class DailyRecordController {
         return ResponseEntity.ok(responseDTOs);
     }
 
+    @GetMapping("/stats/avg/today")
+    public ResponseEntity<Double> getTodayAvgDistance() {
+        return ResponseEntity.ok(dailyRecordService.getTodayAvgDistance());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<DailyRecordResponseDTO> updateDailyRecord(@PathVariable String id, @RequestBody DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = dailyRecordService.updateDailyRecord(id, requestDTO);

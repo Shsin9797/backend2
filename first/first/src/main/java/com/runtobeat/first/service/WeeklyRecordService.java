@@ -61,4 +61,7 @@ public class WeeklyRecordService {
         weeklyRecordRepository.deleteById(id);
     }
 
+    public Double getThisWeekAvgDistance() {
+        return weeklyRecordJDBCRepository.getThisWeekAvgDistance();
+    }
 }

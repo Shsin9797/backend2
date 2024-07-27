@@ -63,6 +63,11 @@ public class MonthlyRecordController {
         return ResponseEntity.ok(responseDTOs);
     }
 
+    @GetMapping("/stats/avg/thismonth")
+    public ResponseEntity<Double> getThisMonthAvgDistance() {
+        return ResponseEntity.ok(monthlyRecordService.getThisMonthAvgDistance());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<MonthlyRecordResponseDTO> updateMonthlyRecord(@PathVariable String id, @RequestBody MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord monthlyRecord = monthlyRecordService.updateMonthlyRecord(id, requestDTO);
