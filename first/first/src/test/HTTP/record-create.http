@@ -3,7 +3,7 @@ POST http://104.198.89.248:3306/record
 Content-Type: application/json
 
 {
-  "memberId": "1234",
+  "memberId": 1234,
   "runningDistance": 10.5,
   "runningTime": "01:30:00",
   "recordDate": "2024-07-28",
