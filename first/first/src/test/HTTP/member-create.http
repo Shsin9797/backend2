@@ -1,0 +1,10 @@
+### Send POST memberRequestDTO with json body
+POST http://localhost:8080/member
+Content-Type: application/json
+
+{
+  "member_name": "John Doe",
+  "total_distance": 100.5,
+  "total_time": "01:30:00",
+  "avg_pace": 5.5
+}

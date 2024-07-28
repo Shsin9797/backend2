@@ -2,14 +2,13 @@ package com.runtobeat.first.service;
 
 import com.runtobeat.first.dto.DailyRecordRequestDTO;
 import com.runtobeat.first.dto.DailyRecordResponseDTO;
-import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.DailyRecordJDBCRepository;
 import com.runtobeat.first.repository.DailyRecordRepository;
+import com.runtobeat.first.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
@@ -18,15 +17,17 @@ public class DailyRecordService {
 
     @Autowired
     private DailyRecordRepository dailyRecordRepository;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Autowired
-    private DailyRecordService dailyRecordService;
-
     private DailyRecordJDBCRepository dailyRecordJDBCRepository;
 
     public DailyRecord createDailyRecord(DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = new DailyRecord(
-                requestDTO.getMemberId(),
+                memberRepository.findById(requestDTO.getMemberId()).get(),
                 requestDTO.getDailyTotalDistance(),
                 requestDTO.getDailyTotalTime(),
                 requestDTO.getYearMonthDate(),
@@ -45,7 +46,7 @@ public class DailyRecordService {
     //ㅇDailyRecord 리스트에서 totalDistance를 가져 */
 
 
-    public DailyRecord getDailyRecordByMemberId(String id) {
+    public DailyRecord getDailyRecordByMemberId(Long id) {
         return dailyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
     }
 
@@ -53,7 +54,7 @@ public class DailyRecordService {
         return dailyRecordRepository.findAll();
     }
 
-    public DailyRecord updateDailyRecord(String id, DailyRecordRequestDTO requestDTO) {
+    public DailyRecord updateDailyRecord(Long id, DailyRecordRequestDTO requestDTO) {
         DailyRecord existingRecord = dailyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
         existingRecord.setDailyTotalDistance(requestDTO.getDailyTotalDistance());
         existingRecord.setDailyTotalTime(requestDTO.getDailyTotalTime());
@@ -62,19 +63,19 @@ public class DailyRecordService {
         return dailyRecordRepository.save(existingRecord);
     }
 
-    public void deleteDailyRecord(String id) {
+    public void deleteDailyRecord(Long id) {
         dailyRecordRepository.deleteById(id);
     }
 
-    public List<DailyRecordResponseDTO> getDailyRecordListByMemberId(String memberId) {
-        List<DailyRecord> dailyRecordList = dailyRecordRepository.findAllByMemberId(memberId);
-        return dailyRecordList.stream().map(dailyRecordService::fromEntity).toList();
+    public List<DailyRecordResponseDTO> getDailyRecordListByMemberId(Long memberId) {
+        List<DailyRecord> dailyRecordList = dailyRecordRepository.findAllByMemberMemberId(memberId);
+        return dailyRecordList.stream().map(this::fromEntity).toList();
     }
 
     public DailyRecordResponseDTO fromEntity(DailyRecord dailyRecord) {
         return new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -85,5 +86,9 @@ public class DailyRecordService {
 
     public void updateDailyRecord(Record savedRecord) {
         dailyRecordJDBCRepository.save(savedRecord);
+    }
+
+    public Double getTodayAvgDistance() {
+        return dailyRecordJDBCRepository.getTodayAvgDistance();
     }
 }

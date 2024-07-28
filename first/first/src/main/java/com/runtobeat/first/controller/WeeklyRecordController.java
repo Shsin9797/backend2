@@ -22,7 +22,7 @@ public class WeeklyRecordController {
     public ResponseEntity<WeeklyRecordResponseDTO> createWeeklyRecord(@RequestBody WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord weeklyRecord = weeklyRecordService.createWeeklyRecord(requestDTO);
         return ResponseEntity.ok(new WeeklyRecordResponseDTO(
-                weeklyRecord.getMemberId(),
+                weeklyRecord.getMember().getMemberId(),
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
@@ -33,11 +33,11 @@ public class WeeklyRecordController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<WeeklyRecordResponseDTO> getWeeklyRecordById(@PathVariable String id) {
+    public ResponseEntity<WeeklyRecordResponseDTO> getWeeklyRecordById(@PathVariable Long id) {
         WeeklyRecord weeklyRecord = weeklyRecordService.getWeeklyRecordById(id);
         return ResponseEntity.ok(new WeeklyRecordResponseDTO(
                 weeklyRecord.getWeeklyRecordId(),
-                weeklyRecord.getMemberId(),
+                weeklyRecord.getMember().getMemberId(),
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
@@ -52,7 +52,7 @@ public class WeeklyRecordController {
         List<WeeklyRecord> weeklyRecords = weeklyRecordService.getAllWeeklyRecords();
         List<WeeklyRecordResponseDTO> responseDTOs = weeklyRecords.stream().map(weeklyRecord -> new WeeklyRecordResponseDTO(
                 weeklyRecord.getWeeklyRecordId(),
-                weeklyRecord.getMemberId(),
+                weeklyRecord.getMember().getMemberId(),
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
@@ -63,12 +63,17 @@ public class WeeklyRecordController {
         return ResponseEntity.ok(responseDTOs);
     }
 
+    @GetMapping("/stats/avg/thisweek")
+    public ResponseEntity<Double> getThisWeekAvgDistance() {
+        return ResponseEntity.ok(weeklyRecordService.getThisWeekAvgDistance());
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<WeeklyRecordResponseDTO> updateWeeklyRecord(@PathVariable String id, @RequestBody WeeklyRecordRequestDTO requestDTO) {
+    public ResponseEntity<WeeklyRecordResponseDTO> updateWeeklyRecord(@PathVariable Long id, @RequestBody WeeklyRecordRequestDTO requestDTO) {
         WeeklyRecord weeklyRecord = weeklyRecordService.updateWeeklyRecord(id, requestDTO);
         return ResponseEntity.ok(new WeeklyRecordResponseDTO(
                 weeklyRecord.getWeeklyRecordId(),
-                weeklyRecord.getMemberId(),
+                weeklyRecord.getMember().getMemberId(),
                 weeklyRecord.getWeeklyTotalDistance(),
                 weeklyRecord.getWeeklyTotalTime(),
                 weeklyRecord.getYearWeek(),
@@ -79,7 +84,7 @@ public class WeeklyRecordController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteWeeklyRecord(@PathVariable String id) {
+    public ResponseEntity<Void> deleteWeeklyRecord(@PathVariable Long id) {
         weeklyRecordService.deleteWeeklyRecord(id);
         return ResponseEntity.noContent().build();
     }

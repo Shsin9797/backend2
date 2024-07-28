@@ -22,7 +22,7 @@ public class MonthlyRecordController {
     public ResponseEntity<MonthlyRecordResponseDTO> createMonthlyRecord(@RequestBody MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord monthlyRecord = monthlyRecordService.createMonthlyRecord(requestDTO);
         return ResponseEntity.ok(new MonthlyRecordResponseDTO(
-                monthlyRecord.getMemberId(),
+                monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
@@ -33,11 +33,11 @@ public class MonthlyRecordController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MonthlyRecordResponseDTO> getMonthlyRecordById(@PathVariable String id) {
+    public ResponseEntity<MonthlyRecordResponseDTO> getMonthlyRecordById(@PathVariable Long id) {
         MonthlyRecord monthlyRecord = monthlyRecordService.getMonthlyRecordById(id);
         return ResponseEntity.ok(new MonthlyRecordResponseDTO(
                 monthlyRecord.getMonthlyRecordId(),
-                monthlyRecord.getMemberId(),
+                monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
@@ -52,7 +52,7 @@ public class MonthlyRecordController {
         List<MonthlyRecord> monthlyRecords = monthlyRecordService.getAllMonthlyRecords();
         List<MonthlyRecordResponseDTO> responseDTOs = monthlyRecords.stream().map(monthlyRecord -> new MonthlyRecordResponseDTO(
                 monthlyRecord.getMonthlyRecordId(),
-                monthlyRecord.getMemberId(),
+                monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
@@ -63,12 +63,17 @@ public class MonthlyRecordController {
         return ResponseEntity.ok(responseDTOs);
     }
 
+    @GetMapping("/stats/avg/thismonth")
+    public ResponseEntity<Double> getThisMonthAvgDistance() {
+        return ResponseEntity.ok(monthlyRecordService.getThisMonthAvgDistance());
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<MonthlyRecordResponseDTO> updateMonthlyRecord(@PathVariable String id, @RequestBody MonthlyRecordRequestDTO requestDTO) {
+    public ResponseEntity<MonthlyRecordResponseDTO> updateMonthlyRecord(@PathVariable Long id, @RequestBody MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord monthlyRecord = monthlyRecordService.updateMonthlyRecord(id, requestDTO);
         return ResponseEntity.ok(new MonthlyRecordResponseDTO(
                 monthlyRecord.getMonthlyRecordId(),
-                monthlyRecord.getMemberId(),
+                monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
                 monthlyRecord.getYearMonth(),
@@ -79,7 +84,7 @@ public class MonthlyRecordController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMonthlyRecord(@PathVariable String id) {
+    public ResponseEntity<Void> deleteMonthlyRecord(@PathVariable Long id) {
         monthlyRecordService.deleteMonthlyRecord(id);
         return ResponseEntity.noContent().build();
     }

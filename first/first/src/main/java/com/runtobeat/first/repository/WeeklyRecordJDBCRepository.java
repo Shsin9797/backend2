@@ -46,7 +46,7 @@ public class WeeklyRecordJDBCRepository {
         if (existingRecord == null) {
             // If no existing record, create a new WeeklyRecord
             WeeklyRecord newRecord = new WeeklyRecord(
-                    record.getMemberId(),
+                    record.getMember(),
                     record.getRunningDistance(),
                     record.getRunningTime(),
                     record.getRecordDate(),
@@ -62,13 +62,23 @@ public class WeeklyRecordJDBCRepository {
             long totalNewSeconds = toSeconds(record.getRunningTime());
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
             existingRecord.setWeeklyTotalTime(toLocalTime(updateTotalSeconds));
-
             double newTotalDistance = existingRecord.getWeeklyTotalDistance();
-            double newTotalTimeInHours = (double) updateTotalSeconds / 3600.0;
-            existingRecord.setWeeklyRecordPace(newTotalDistance / newTotalTimeInHours);
+            existingRecord.setWeeklyRecordPace(updateTotalSeconds /newTotalDistance);
+
             existingRecord.setWeeklyRunningStep(existingRecord.getWeeklyRunningStep() + record.getRunningStep());
 
             weeklyRecordRepository.save(existingRecord);
         }
+    }
+
+    public Double getThisWeekAvgDistance() {
+        // Get today's date
+        LocalDate today = LocalDate.now();
+        // Calculate the week year string for today
+        String weekYear = getWeekYear(today);
+        // SQL query to calculate the average distance for the current week
+        String sql = "SELECT AVG(weeklyTotalDistance) FROM WeeklyRecord WHERE weekYear = ?";
+        // Execute the query and return the average distance
+        return jdbcTemplate.queryForObject(sql, new Object[]{weekYear}, Double.class);
     }
 }

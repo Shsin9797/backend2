@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class MemberRequestDTO {
-    private String memberId;
+    private Long memberId;
     private String memberName;
     private Double totalDistance;
     private LocalTime totalTime;

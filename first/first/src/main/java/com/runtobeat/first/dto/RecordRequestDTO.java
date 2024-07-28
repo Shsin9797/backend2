@@ -11,15 +11,15 @@ import java.time.LocalTime;
 @Getter
 @Setter
 public class RecordRequestDTO {
-    private String recordId;
-    private String memberId;
+    private Long recordId;
+    private Long memberId;
     private Double runningDistance;
     private LocalTime runningTime;
     private LocalDate recordDate;
     private Double recordPace;
     private Long runningStep;
 
-    public RecordRequestDTO(String memberId, Double runningDistance, LocalTime runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
+    public RecordRequestDTO(Long memberId, Double runningDistance, LocalTime runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
         this.memberId = memberId;
         this.runningDistance = runningDistance;
         this.runningTime = runningTime;

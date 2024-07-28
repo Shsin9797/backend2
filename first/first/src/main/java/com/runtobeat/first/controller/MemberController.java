@@ -22,7 +22,7 @@ public class MemberController {
     }
 
     @GetMapping("/{memberId}")
-    public ResponseEntity<MemberResponseDTO> getMember(@PathVariable String memberId) {
+    public ResponseEntity<MemberResponseDTO> getMember(@PathVariable Long memberId) {
         MemberResponseDTO memberResponseDTO = memberService.getMember(memberId);
         return ResponseEntity.ok(memberResponseDTO);
     }
@@ -34,14 +34,14 @@ public class MemberController {
     }
 
     @PutMapping("/{memberId}")
-    public ResponseEntity<MemberResponseDTO> updateMember(@PathVariable String memberId, @RequestBody MemberRequestDTO memberRequestDTO) {
+    public ResponseEntity<MemberResponseDTO> updateMember(@PathVariable Long memberId, @RequestBody MemberRequestDTO memberRequestDTO) {
         MemberResponseDTO memberResponseDTO = memberService.updateMember(memberId, memberRequestDTO);
         return ResponseEntity.ok(memberResponseDTO);
     }
 
 
     @DeleteMapping("/{memberId}")
-    public ResponseEntity<Void> deleteMember(@PathVariable String memberId) {
+    public ResponseEntity<Void> deleteMember(@PathVariable Long memberId) {
         memberService.deleteMember(memberId);
         return ResponseEntity.noContent().build();
     }

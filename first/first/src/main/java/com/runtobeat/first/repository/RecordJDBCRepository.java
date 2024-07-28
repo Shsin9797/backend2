@@ -15,19 +15,20 @@ public class RecordJDBCRepository {
     }
 
 
-    public Integer getTodayMyThisRanking(String memberId, String recordId) {
+    public Integer getTodayMyThisRanking(Long memberId, String recordId) {
         String sql = "SELECT rank FROM (" +
-                "    SELECT member_id, record_id, ranking_value, " +
-                "           RANK() OVER (ORDER BY ranking_value DESC) as rank " +
-                "    FROM records " +
-                "    WHERE date = CURDATE() " +
+                "    SELECT memberId, recordId, recordPace, " +
+                "           RANK() OVER (ORDER BY recordPace) as rank " +
+                "    FROM Record " +
+                "    WHERE recordDate = CURDATE() " +
                 ") ranked_records " +
-                "WHERE member_id = ? AND record_id = ?";
+                "WHERE memberId = ? AND recordId = ?";
 
         return jdbcTemplate.queryForObject(sql, new Object[]{memberId, recordId}, Integer.class);
 
     }
 
+    //아닌거같아서 미수정
     public Integer getTodayMyThisRanking2(String memberId, String recordId) {
         String sql = "SELECT ranking " +
                 "FROM ( " +
@@ -45,15 +46,15 @@ public class RecordJDBCRepository {
 
     public Double getTodayTotalUserRecordAvgPace() {
 
-        String sql = "SELECT AVG(pace) AS avg_pace " +
-                "FROM records " +
-                "WHERE date = CURDATE()";
+        String sql = "SELECT AVG(recordPace) AS avg_pace " +
+                "FROM Record " +
+                "WHERE recordDate = CURDATE()";
 
         return jdbcTemplate.queryForObject(sql, Double.class);
     }
 
     public Integer getTodayTotalRecordCount() {
-        String sql = "SELECT COUNT(*) FROM records WHERE date = CURDATE()";
+        String sql = "SELECT COUNT(*) FROM Record WHERE recordDate = CURDATE()";
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 }

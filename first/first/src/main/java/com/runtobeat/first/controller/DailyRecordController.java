@@ -22,7 +22,7 @@ public class DailyRecordController {
     public ResponseEntity<DailyRecordResponseDTO> createDailyRecord(@RequestBody DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = dailyRecordService.createDailyRecord(requestDTO);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -32,11 +32,11 @@ public class DailyRecordController {
     }
 
     @GetMapping("/{memberId}")
-    public ResponseEntity<DailyRecordResponseDTO> getDailyRecordById(@PathVariable String memberId) {
+    public ResponseEntity<DailyRecordResponseDTO> getDailyRecordById(@PathVariable Long memberId) {
         DailyRecord dailyRecord = dailyRecordService.getDailyRecordByMemberId(memberId);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -46,7 +46,7 @@ public class DailyRecordController {
     }
 
     @GetMapping("/list/{memberId}")
-    public ResponseEntity<List<DailyRecordResponseDTO>> getDailyRecordListById(@PathVariable String memberId) {
+    public ResponseEntity<List<DailyRecordResponseDTO>> getDailyRecordListById(@PathVariable Long memberId) {
         List<DailyRecordResponseDTO> dailyRecord = dailyRecordService.getDailyRecordListByMemberId(memberId);
         return ResponseEntity.ok(dailyRecord);
     }
@@ -56,7 +56,7 @@ public class DailyRecordController {
         List<DailyRecord> dailyRecords = dailyRecordService.getAllDailyRecords();
         List<DailyRecordResponseDTO> responseDTOs = dailyRecords.stream().map(dailyRecord -> new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -66,12 +66,17 @@ public class DailyRecordController {
         return ResponseEntity.ok(responseDTOs);
     }
 
+    @GetMapping("/stats/avg/today")
+    public ResponseEntity<Double> getTodayAvgDistance() {
+        return ResponseEntity.ok(dailyRecordService.getTodayAvgDistance());
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<DailyRecordResponseDTO> updateDailyRecord(@PathVariable String id, @RequestBody DailyRecordRequestDTO requestDTO) {
+    public ResponseEntity<DailyRecordResponseDTO> updateDailyRecord(@PathVariable Long id, @RequestBody DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = dailyRecordService.updateDailyRecord(id, requestDTO);
         return ResponseEntity.ok(new DailyRecordResponseDTO(
                 dailyRecord.getDailyRecordId(),
-                dailyRecord.getMemberId(),
+                dailyRecord.getMember().getMemberId(),
                 dailyRecord.getDailyTotalDistance(),
                 dailyRecord.getDailyTotalTime(),
                 dailyRecord.getYearMonthDate(),
@@ -81,7 +86,7 @@ public class DailyRecordController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDailyRecord(@PathVariable String id) {
+    public ResponseEntity<Void> deleteDailyRecord(@PathVariable Long id) {
         dailyRecordService.deleteDailyRecord(id);
         return ResponseEntity.noContent().build();
     }

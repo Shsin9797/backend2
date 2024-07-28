@@ -17,7 +17,7 @@ import java.time.LocalTime;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String memberId;
+    private Long memberId;
     private String memberName;
     private Double totalDistance; // 타입확인
     private LocalTime totalTime; // 타입확인

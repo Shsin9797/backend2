@@ -9,7 +9,6 @@ import com.runtobeat.first.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@ public class RecordService {
 
     public RecordResponseDTO createRecord(RecordRequestDTO recordRequestDTO) {
         Record record = new Record(
-                recordRequestDTO.getMemberId(),
+                memberService.getMemberEntity(recordRequestDTO.getMemberId()),
                 recordRequestDTO.getRunningDistance(),
                 recordRequestDTO.getRunningTime(),
                 recordRequestDTO.getRecordDate(),
@@ -37,7 +36,7 @@ public class RecordService {
 
         Record savedRecord = recordRepository.save(record);
         // member 업데이트
-        memberService.updateMember(savedRecord);
+        memberService.updateMemberRunningInfo(savedRecord);
         //daily 업데이트
         dailyRecordService.updateDailyRecord(savedRecord);
         // weekly 업데이트
@@ -47,7 +46,7 @@ public class RecordService {
         return convertToResponseDTO(savedRecord);
     }
 
-    public RecordResponseDTO getRecordById(String id) {
+    public RecordResponseDTO getRecordById(Long id) {
         Record record = recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
         return convertToResponseDTO(record);
     }
@@ -58,10 +57,10 @@ public class RecordService {
                 .collect(Collectors.toList());
     }
 
-    public RecordResponseDTO updateRecord(String id, RecordRequestDTO recordRequestDTO) {
+    public RecordResponseDTO updateRecord(Long id, RecordRequestDTO recordRequestDTO) {
         Record record = recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
 
-        record.setMemberId(recordRequestDTO.getMemberId());
+        record.setMember(memberService.getMemberEntity(recordRequestDTO.getMemberId()));
         record.setRunningDistance(recordRequestDTO.getRunningDistance());
         record.setRunningTime(recordRequestDTO.getRunningTime());
         record.setRunningStep(recordRequestDTO.getRunningStep());
@@ -72,23 +71,23 @@ public class RecordService {
         return convertToResponseDTO(updatedRecord);
     }
 
-    public void deleteRecord(String id) {
+    public void deleteRecord(Long id) {
         recordRepository.deleteById(id);
     }
 
     private RecordResponseDTO convertToResponseDTO(Record record) {
         return new RecordResponseDTO(
                 record.getRecordId(),
-                record.getMemberId(),
+                record.getMember().getMemberId(),
                 record.getRunningDistance(),
                 record.getRunningTime(),
-                record.getRunningStep(),
                 record.getRecordDate(),
-                record.getRecordPace()
-        );
+                record.getRecordPace(),
+                record.getRunningStep()
+                );
     }
 
-    public TodayRankingResponseDTO getMyRecordRanking(String memberId, String recordId) {
+    public TodayRankingResponseDTO getMyRecordRanking(Long memberId, String recordId) {
 
         //'나'의 '이번' '레코드 기록'의 /  '오늘'의 '랭킹값' 가져오기 (sql 쿼리로 )
         Integer todayMyThisRanking = recordJDBCRepository.getTodayMyThisRanking(memberId,recordId);
