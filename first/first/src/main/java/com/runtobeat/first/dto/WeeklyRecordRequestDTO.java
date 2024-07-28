@@ -9,8 +9,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Getter
 public class WeeklyRecordRequestDTO {
-    private String weeklyRecordId;
-    private String memberId;
+    private Long weeklyRecordId;
+    private Long memberId;
     private Double weeklyTotalDistance;
     private LocalTime weeklyTotalTime;
     private LocalDate yearWeek;
@@ -18,7 +18,7 @@ public class WeeklyRecordRequestDTO {
     private Long weeklyRunningStep;
     private String weekYear;
 
-    public WeeklyRecordRequestDTO(String memberId, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
+    public WeeklyRecordRequestDTO(Long memberId, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
         this.memberId = memberId;
         this.weeklyTotalDistance = weeklyTotalDistance;
         this.weeklyTotalTime = weeklyTotalTime;

@@ -10,8 +10,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Getter
 public class MonthlyRecordResponseDTO {
-    private String monthlyRecordId;
-    private String memberId;
+    private Long monthlyRecordId;
+    private Long memberId;
     private Double monthlyTotalDistance;
     private LocalTime monthlyTotalTime;
     private LocalDate yearMonth;
@@ -19,7 +19,7 @@ public class MonthlyRecordResponseDTO {
     private Long monthlyRunningStep;
     private  String monthYear;
 
-    public MonthlyRecordResponseDTO(String memberId, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
+    public MonthlyRecordResponseDTO(Long memberId, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
         this.memberId = memberId;
         this.monthlyTotalDistance = monthlyTotalDistance;
         this.monthlyTotalTime = monthlyTotalTime;

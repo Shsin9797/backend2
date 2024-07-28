@@ -9,17 +9,16 @@ import java.time.LocalTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "WeeklyRecord")
+@Table(name = "weekly_record")
 @Getter
 @Setter
-
 public class WeeklyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String weeklyRecordId;
+    private Long weeklyRecordId;
 
     @ManyToOne
-    @JoinColumn(name = "memberId", referencedColumnName = "memberId")
+    @JoinColumn(name = "member_id", referencedColumnName = "memberId")
     private Member member;
 
     private Double weeklyTotalDistance;

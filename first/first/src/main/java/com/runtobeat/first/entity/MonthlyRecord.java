@@ -9,16 +9,16 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "MonthlyRecord")
+@Table(name = "monthly_record")
 @Getter
 @Setter
 public class MonthlyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String monthlyRecordId;
+    private Long monthlyRecordId;
 
     @ManyToOne
-    @JoinColumn(name = "memberId", referencedColumnName = "memberId")
+    @JoinColumn(name = "member_id", referencedColumnName = "memberId")
     private Member member;
 
     private Double monthlyTotalDistance;

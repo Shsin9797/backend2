@@ -10,16 +10,16 @@ import java.time.LocalTime;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "DailyRecord")
+@Table(name = "daily_record")
 @Getter
 @Setter
 public class DailyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String dailyRecordId;
+    private Long dailyRecordId;
 
     @ManyToOne
-    @JoinColumn(name = "memberId", referencedColumnName = "memberId")
+    @JoinColumn(name = "member_id", referencedColumnName = "memberId")
     private Member member;
 
     private Double dailyTotalDistance;

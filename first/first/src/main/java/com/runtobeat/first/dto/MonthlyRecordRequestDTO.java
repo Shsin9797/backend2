@@ -2,8 +2,6 @@ package com.runtobeat.first.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -11,8 +9,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Getter
 public class MonthlyRecordRequestDTO {
-    private String monthlyRecordId;
-    private String memberId;
+    private Long monthlyRecordId;
+    private Long memberId;
     private Double monthlyTotalDistance;
     private LocalTime monthlyTotalTime;
     private LocalDate yearMonth;
@@ -21,7 +19,7 @@ public class MonthlyRecordRequestDTO {
     private  String monthYear;
 
 
-    public MonthlyRecordRequestDTO(String memberId, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
+    public MonthlyRecordRequestDTO(Long memberId, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
         this.memberId = memberId;
         this.monthlyTotalDistance = monthlyTotalDistance;
         this.monthlyTotalTime = monthlyTotalTime;

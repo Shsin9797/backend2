@@ -18,10 +18,10 @@ import java.time.LocalTime;
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String recordId;
+    private Long recordId;
 
     @ManyToOne
-    @JoinColumn(name = "memberId", referencedColumnName = "memberId")
+    @JoinColumn(name = "member_id", referencedColumnName = "memberId")
     private Member member;
 
     private Double runningDistance;
