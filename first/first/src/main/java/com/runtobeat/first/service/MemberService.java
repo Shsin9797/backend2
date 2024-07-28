@@ -122,7 +122,7 @@ public class MemberService {
 
         originMember.setTotalDistance(newDistance);
         originMember.setTotalTime(newTime);
-        originMember.setAvgPace(newPaceDouble);
+        originMember.setAvgPace(newPaceDouble );
 
         memberRepository.save(originMember);
     }
