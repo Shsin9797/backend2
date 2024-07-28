@@ -36,7 +36,7 @@ public class RecordService {
 
         Record savedRecord = recordRepository.save(record);
         // member 업데이트
-        memberService.updateMemberRunningInfo(savedRecord);
+        memberService.updateMemberRunningInfo(savedRecord) ;
         //daily 업데이트
         dailyRecordService.updateDailyRecord(savedRecord);
         // weekly 업데이트
