@@ -15,7 +15,7 @@ public class RecordJDBCRepository {
     }
 
 
-    public Integer getTodayMyThisRanking(String memberId, String recordId) {
+    public Integer getTodayMyThisRanking(Long memberId, String recordId) {
         String sql = "SELECT rank FROM (" +
                 "    SELECT memberId, recordId, recordPace, " +
                 "           RANK() OVER (ORDER BY recordPace) as rank " +

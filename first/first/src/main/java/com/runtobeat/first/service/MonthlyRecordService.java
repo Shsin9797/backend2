@@ -6,7 +6,6 @@ import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.MemberRepository;
 import com.runtobeat.first.repository.MonthlyRecordJDBCRepository;
 import com.runtobeat.first.repository.MonthlyRecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class MonthlyRecordService {
         return monthlyRecordRepository.save(monthlyRecord);
     }
 
-    public MonthlyRecord getMonthlyRecordById(String id) {
+    public MonthlyRecord getMonthlyRecordById(Long id) {
         return monthlyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
     }
 
@@ -45,7 +44,7 @@ public class MonthlyRecordService {
         return monthlyRecordRepository.findAll();
     }
 
-    public MonthlyRecord updateMonthlyRecord(String id, MonthlyRecordRequestDTO requestDTO) {
+    public MonthlyRecord updateMonthlyRecord(Long id, MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord existingRecord = monthlyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
         existingRecord.getMember().setMemberId(requestDTO.getMemberId());
         existingRecord.setMonthlyTotalDistance(requestDTO.getMonthlyTotalDistance());
@@ -59,7 +58,7 @@ public class MonthlyRecordService {
         monthlyRecordJDBCRepository.save(savedRecord);
     }
 
-    public void deleteMonthlyRecord(String id) {
+    public void deleteMonthlyRecord(Long id) {
         monthlyRecordRepository.deleteById(id);
     }
 

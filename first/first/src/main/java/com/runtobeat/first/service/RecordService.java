@@ -9,7 +9,6 @@ import com.runtobeat.first.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,7 +46,7 @@ public class RecordService {
         return convertToResponseDTO(savedRecord);
     }
 
-    public RecordResponseDTO getRecordById(String id) {
+    public RecordResponseDTO getRecordById(Long id) {
         Record record = recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
         return convertToResponseDTO(record);
     }
@@ -58,7 +57,7 @@ public class RecordService {
                 .collect(Collectors.toList());
     }
 
-    public RecordResponseDTO updateRecord(String id, RecordRequestDTO recordRequestDTO) {
+    public RecordResponseDTO updateRecord(Long id, RecordRequestDTO recordRequestDTO) {
         Record record = recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
 
         record.setMember(memberService.getMemberEntity(recordRequestDTO.getMemberId()));
@@ -72,7 +71,7 @@ public class RecordService {
         return convertToResponseDTO(updatedRecord);
     }
 
-    public void deleteRecord(String id) {
+    public void deleteRecord(Long id) {
         recordRepository.deleteById(id);
     }
 
@@ -88,7 +87,7 @@ public class RecordService {
                 );
     }
 
-    public TodayRankingResponseDTO getMyRecordRanking(String memberId, String recordId) {
+    public TodayRankingResponseDTO getMyRecordRanking(Long memberId, String recordId) {
 
         //'나'의 '이번' '레코드 기록'의 /  '오늘'의 '랭킹값' 가져오기 (sql 쿼리로 )
         Integer todayMyThisRanking = recordJDBCRepository.getTodayMyThisRanking(memberId,recordId);

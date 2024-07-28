@@ -42,7 +42,7 @@ public class MemberService {
         );
     }
 
-    public MemberResponseDTO getMember(String memberId) {
+    public MemberResponseDTO getMember(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
         return new MemberResponseDTO(
                 member.getMemberId(),
@@ -53,7 +53,7 @@ public class MemberService {
         );
     }
 
-    public Member getMemberEntity(String memberId) {
+    public Member getMemberEntity(Long memberId) {
         return memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
     }
 
@@ -67,7 +67,7 @@ public class MemberService {
         )).collect(Collectors.toList());
     }
 
-    public MemberResponseDTO updateMember(String memberId, MemberRequestDTO memberRequestDTO) {
+    public MemberResponseDTO updateMember(Long memberId, MemberRequestDTO memberRequestDTO) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
         member.setMemberName(memberRequestDTO.getMemberName());
         member.setTotalDistance(memberRequestDTO.getTotalDistance());
@@ -83,7 +83,7 @@ public class MemberService {
         );
     }
 
-    public MemberResponseDTO updateMember(String memberId, RecordRequestDTO recordRequestDTO) {
+    public MemberResponseDTO updateMember(Long memberId, RecordRequestDTO recordRequestDTO) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
         member.setTotalDistance(member.getTotalDistance() + recordRequestDTO.getRunningDistance());
         LocalTime time = recordRequestDTO.getRunningTime();
@@ -99,11 +99,11 @@ public class MemberService {
         );
     }
 
-    public void deleteMember(String memberId) {
+    public void deleteMember(Long memberId) {
         memberRepository.deleteById(memberId);
     }
 
-    public MypageTotalRunningInfoResponseDTO getMemberRunningInfo(String memberId) {
+    public MypageTotalRunningInfoResponseDTO getMemberRunningInfo(Long memberId) {
         Member member = memberRepository.findById(memberId).get();
         return new MypageTotalRunningInfoResponseDTO(member.getTotalDistance(), member.getAvgPace());
     }
@@ -126,6 +126,5 @@ public class MemberService {
 
         memberRepository.save(originMember);
     }
-
 
 }

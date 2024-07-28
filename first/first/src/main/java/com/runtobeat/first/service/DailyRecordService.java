@@ -46,7 +46,7 @@ public class DailyRecordService {
     //ㅇDailyRecord 리스트에서 totalDistance를 가져 */
 
 
-    public DailyRecord getDailyRecordByMemberId(String id) {
+    public DailyRecord getDailyRecordByMemberId(Long id) {
         return dailyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
     }
 
@@ -54,7 +54,7 @@ public class DailyRecordService {
         return dailyRecordRepository.findAll();
     }
 
-    public DailyRecord updateDailyRecord(String id, DailyRecordRequestDTO requestDTO) {
+    public DailyRecord updateDailyRecord(Long id, DailyRecordRequestDTO requestDTO) {
         DailyRecord existingRecord = dailyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
         existingRecord.setDailyTotalDistance(requestDTO.getDailyTotalDistance());
         existingRecord.setDailyTotalTime(requestDTO.getDailyTotalTime());
@@ -63,11 +63,11 @@ public class DailyRecordService {
         return dailyRecordRepository.save(existingRecord);
     }
 
-    public void deleteDailyRecord(String id) {
+    public void deleteDailyRecord(Long id) {
         dailyRecordRepository.deleteById(id);
     }
 
-    public List<DailyRecordResponseDTO> getDailyRecordListByMemberId(String memberId) {
+    public List<DailyRecordResponseDTO> getDailyRecordListByMemberId(Long memberId) {
         List<DailyRecord> dailyRecordList = dailyRecordRepository.findAllByMemberMemberId(memberId);
         return dailyRecordList.stream().map(this::fromEntity).toList();
     }
