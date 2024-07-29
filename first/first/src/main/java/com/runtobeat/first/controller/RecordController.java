@@ -1,8 +1,8 @@
 package com.runtobeat.first.controller;
 
 import com.runtobeat.first.dto.MypageTotalRunningInfoResponseDTO;
+import com.runtobeat.first.dto.RecordCreateRequestDTO;
 import com.runtobeat.first.dto.TodayRankingResponseDTO;
-import com.runtobeat.first.dto.RecordRequestDTO;
 import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.service.DailyRecordService;
 import com.runtobeat.first.service.MemberService;
@@ -28,8 +28,8 @@ public class RecordController {
 
 
     @PostMapping // api 명세서 1번
-    public ResponseEntity<RecordResponseDTO> createRecord(@RequestBody RecordRequestDTO recordRequestDTO) {
-        RecordResponseDTO rd = recordService.createRecord(recordRequestDTO);
+    public ResponseEntity<RecordResponseDTO> createRecord(@RequestBody RecordCreateRequestDTO recordCreateRequestDTO) {
+        RecordResponseDTO rd = recordService.createRecord(recordCreateRequestDTO);
         return ResponseEntity.ok(rd);
     }
 
@@ -56,8 +56,8 @@ public class RecordController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RecordResponseDTO> updateRecord(@PathVariable Long id, @RequestBody RecordRequestDTO recordRequestDTO) {
-        return ResponseEntity.ok(recordService.updateRecord(id, recordRequestDTO));
+    public ResponseEntity<RecordResponseDTO> updateRecord(@PathVariable Long id, @RequestBody RecordCreateRequestDTO recordCreateRequestDTO) {
+        return ResponseEntity.ok(recordService.updateRecord(id, recordCreateRequestDTO));
     }
 
     @DeleteMapping("/{id}")
