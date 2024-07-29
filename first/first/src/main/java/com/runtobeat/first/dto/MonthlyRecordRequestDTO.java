@@ -1,5 +1,6 @@
 package com.runtobeat.first.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ public class MonthlyRecordRequestDTO {
     private Long monthlyRecordId;
     private Long memberId;
     private Double monthlyTotalDistance;
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime monthlyTotalTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
     private Long MonthlyRunningStep;

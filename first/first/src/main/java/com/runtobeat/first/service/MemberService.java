@@ -25,21 +25,14 @@ public class MemberService {
     }
 
     public MemberResponseDTO createMember(MemberRequestDTO memberRequestDTO) {
-        Member member = new Member(
-                memberRequestDTO.getMemberId(),
-                memberRequestDTO.getMemberName(),
-                memberRequestDTO.getTotalDistance(),
-                memberRequestDTO.getTotalTime(),
-                memberRequestDTO.getAvgPace()
-        );
+        Member member = new Member(memberRequestDTO.getMemberName(), 0.0, LocalTime.of(0, 0, 0), 0.0);
         Member savedMember = memberRepository.save(member);
         return new MemberResponseDTO(
                 savedMember.getMemberId(),
                 savedMember.getMemberName(),
                 savedMember.getTotalDistance(),
                 savedMember.getTotalTime(),
-                savedMember.getAvgPace()
-        );
+                savedMember.getAvgPace());
     }
 
     public MemberResponseDTO getMember(Long memberId) {
@@ -67,7 +60,7 @@ public class MemberService {
         )).collect(Collectors.toList());
     }
 
-    public MemberResponseDTO updateMember(Long memberId, MemberRequestDTO memberRequestDTO) {
+    /* public MemberResponseDTO updateMember(Long memberId, MemberRequestDTO memberRequestDTO) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
         member.setMemberName(memberRequestDTO.getMemberName());
         member.setTotalDistance(memberRequestDTO.getTotalDistance());
@@ -97,7 +90,7 @@ public class MemberService {
                 updatedMember.getTotalTime(),
                 updatedMember.getAvgPace()
         );
-    }
+    } */
 
     public void deleteMember(Long memberId) {
         memberRepository.deleteById(memberId);
