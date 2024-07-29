@@ -23,19 +23,19 @@ public class MonthlyRecord {
 
     private Double monthlyTotalDistance;
     private LocalTime monthlyTotalTime;
-    private LocalDate yearMonth;
+    private LocalDate yearMonths;
     private Double monthlyRecordPace;
     private Long monthlyRunningStep;
-    private String monthYear;
+    private String monthYears;
 
-    public MonthlyRecord(Member member, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
+    public MonthlyRecord(Member member, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonths, Double monthlyRecordPace, Long monthlyRunningStep, String monthYears) {
         this.member = member;
         this.monthlyTotalDistance = monthlyTotalDistance;
         this.monthlyTotalTime = monthlyTotalTime;
-        this.yearMonth = yearMonth;
+        this.yearMonths = yearMonths;
         this.monthlyRecordPace = monthlyRecordPace;
         this.monthlyRunningStep = monthlyRunningStep;
-        this.monthYear = monthYear;
+        this.monthYears = monthYears;
     }
 }
 

@@ -36,7 +36,7 @@ public class MonthlyRecordJDBCRepository {
 
     public void save(Record record) {
         String monthYear = getMonthYear(record.getRecordDate());
-        MonthlyRecord existingRecord = monthlyRecordRepository.getByMonthYear(monthYear);
+        MonthlyRecord existingRecord = monthlyRecordRepository.getByMonthYears(monthYear);
 
         if (existingRecord == null) {
             MonthlyRecord newRecord = new MonthlyRecord(

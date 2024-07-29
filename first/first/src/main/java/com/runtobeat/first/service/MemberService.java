@@ -1,9 +1,9 @@
 package com.runtobeat.first.service;
 
-import com.runtobeat.first.dto.MemberRequestDTO;
+import com.runtobeat.first.dto.MemberCreateRequestDTO;
 import com.runtobeat.first.dto.MemberResponseDTO;
 import com.runtobeat.first.dto.MypageTotalRunningInfoResponseDTO;
-import com.runtobeat.first.dto.RecordRequestDTO;
+import com.runtobeat.first.dto.RecordCreateRequestDTO;
 import com.runtobeat.first.entity.Member;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.MemberRepository;
@@ -24,8 +24,8 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public MemberResponseDTO createMember(MemberRequestDTO memberRequestDTO) {
-        Member member = new Member(memberRequestDTO.getMemberName(), 0.0, LocalTime.of(0, 0, 0), 0.0);
+    public MemberResponseDTO createMember(MemberCreateRequestDTO memberCreateRequestDTO) {
+        Member member = new Member(memberCreateRequestDTO.getMemberName(), 0.0, LocalTime.of(0, 0, 0), 0.0);
         Member savedMember = memberRepository.save(member);
         return new MemberResponseDTO(
                 savedMember.getMemberId(),
@@ -60,12 +60,31 @@ public class MemberService {
         )).collect(Collectors.toList());
     }
 
-    /* public MemberResponseDTO updateMember(Long memberId, MemberRequestDTO memberRequestDTO) {
+//    public MemberResponseDTO updateMember(Long memberId, MemberCreateRequestDTO memberCreateRequestDTO) {
+//        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
+//        member.setMemberName(memberCreateRequestDTO.getMemberName());
+//
+//        member.setTotalDistance(memberCreateRequestDTO.getTotalDistance());
+//        member.setTotalTime(memberCreateRequestDTO.getTotalTime());
+//        member.setAvgPace(memberCreateRequestDTO.getAvgPace());
+//
+//        Member updatedMember = memberRepository.save(member);
+//        return new MemberResponseDTO(
+//                updatedMember.getMemberId(),
+//                updatedMember.getMemberName(),
+//                updatedMember.getTotalDistance(),
+//                updatedMember.getTotalTime(),
+//                updatedMember.getAvgPace()
+//        );
+//    }
+
+    public MemberResponseDTO updateMemberRecord(RecordCreateRequestDTO recordCreateRequestDTO) {
+        Long memberId = recordCreateRequestDTO.getMemberId();
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
-        member.setMemberName(memberRequestDTO.getMemberName());
-        member.setTotalDistance(memberRequestDTO.getTotalDistance());
-        member.setTotalTime(memberRequestDTO.getTotalTime());
-        member.setAvgPace(memberRequestDTO.getAvgPace());
+        member.setTotalDistance(member.getTotalDistance() + recordCreateRequestDTO.getRunningDistance());
+        LocalTime time = recordCreateRequestDTO.getRunningTime();
+        member.setTotalTime(member.getTotalTime().plusHours(time.getHour()).plusMinutes(time.getMinute()).plusSeconds(time.getSecond()));
+        member.setAvgPace(recordCreateRequestDTO.getRecordPace());
         Member updatedMember = memberRepository.save(member);
         return new MemberResponseDTO(
                 updatedMember.getMemberId(),
@@ -75,22 +94,6 @@ public class MemberService {
                 updatedMember.getAvgPace()
         );
     }
-
-    public MemberResponseDTO updateMember(Long memberId, RecordRequestDTO recordRequestDTO) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
-        member.setTotalDistance(member.getTotalDistance() + recordRequestDTO.getRunningDistance());
-        LocalTime time = recordRequestDTO.getRunningTime();
-        member.setTotalTime(member.getTotalTime().plusHours(time.getHour()).plusMinutes(time.getMinute()).plusSeconds(time.getSecond()));
-        member.setAvgPace(recordRequestDTO.getRecordPace());
-        Member updatedMember = memberRepository.save(member);
-        return new MemberResponseDTO(
-                updatedMember.getMemberId(),
-                updatedMember.getMemberName(),
-                updatedMember.getTotalDistance(),
-                updatedMember.getTotalTime(),
-                updatedMember.getAvgPace()
-        );
-    } */
 
     public void deleteMember(Long memberId) {
         memberRepository.deleteById(memberId);

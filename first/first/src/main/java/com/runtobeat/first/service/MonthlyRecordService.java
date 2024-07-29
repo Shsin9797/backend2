@@ -49,7 +49,7 @@ public class MonthlyRecordService {
         existingRecord.getMember().setMemberId(requestDTO.getMemberId());
         existingRecord.setMonthlyTotalDistance(requestDTO.getMonthlyTotalDistance());
         existingRecord.setMonthlyTotalTime(requestDTO.getMonthlyTotalTime());
-        existingRecord.setYearMonth(requestDTO.getYearMonth());
+        existingRecord.setYearMonths(requestDTO.getYearMonth());
         existingRecord.setMonthlyRecordPace(requestDTO.getMonthlyRecordPace());
         return monthlyRecordRepository.save(existingRecord);
     }
