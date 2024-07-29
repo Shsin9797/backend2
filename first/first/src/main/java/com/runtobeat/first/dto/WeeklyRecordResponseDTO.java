@@ -1,5 +1,6 @@
 package com.runtobeat.first.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,9 @@ public class WeeklyRecordResponseDTO {
     private Long weeklyRecordId;
     private Long memberId;
     private Double weeklyTotalDistance;
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime weeklyTotalTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate yearWeek;
     private Double weeklyRecordPace;
     private Long weeklyRunningStep;
