@@ -1,4 +1,4 @@
-### Send POST recordRequestDTO with json body
+### Send POST recordCreateRequestDTO with json body
 POST http://104.198.89.248:3306/record
 Content-Type: application/json
 

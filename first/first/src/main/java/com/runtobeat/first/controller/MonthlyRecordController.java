@@ -25,10 +25,10 @@ public class MonthlyRecordController {
                 monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
-                monthlyRecord.getYearMonth(),
+                monthlyRecord.getYearMonths(),
                 monthlyRecord.getMonthlyRecordPace(),
                 monthlyRecord.getMonthlyRunningStep(),
-                monthlyRecord.getMonthYear()
+                monthlyRecord.getMonthYears()
         ));
     }
 
@@ -40,10 +40,10 @@ public class MonthlyRecordController {
                 monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
-                monthlyRecord.getYearMonth(),
+                monthlyRecord.getYearMonths(),
                 monthlyRecord.getMonthlyRecordPace(),
                 monthlyRecord.getMonthlyRunningStep(),
-                monthlyRecord.getMonthYear()
+                monthlyRecord.getMonthYears()
         ));
     }
 
@@ -55,10 +55,10 @@ public class MonthlyRecordController {
                 monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
-                monthlyRecord.getYearMonth(),
+                monthlyRecord.getYearMonths(),
                 monthlyRecord.getMonthlyRecordPace(),
                 monthlyRecord.getMonthlyRunningStep(),
-                monthlyRecord.getMonthYear()
+                monthlyRecord.getMonthYears()
         )).collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
     }
@@ -76,10 +76,10 @@ public class MonthlyRecordController {
                 monthlyRecord.getMember().getMemberId(),
                 monthlyRecord.getMonthlyTotalDistance(),
                 monthlyRecord.getMonthlyTotalTime(),
-                monthlyRecord.getYearMonth(),
+                monthlyRecord.getYearMonths(),
                 monthlyRecord.getMonthlyRecordPace(),
                 monthlyRecord.getMonthlyRunningStep(),
-                monthlyRecord.getMonthYear()
+                monthlyRecord.getMonthYears()
         ));
     }
 

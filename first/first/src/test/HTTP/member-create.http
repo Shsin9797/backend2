@@ -1,4 +1,4 @@
-### Send POST memberRequestDTO with json body
+### Send POST memberCreateRequestDTO with json body
 POST http://localhost:8080/member
 Content-Type: application/json
 

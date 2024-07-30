@@ -28,7 +28,6 @@ public class DailyRecord {
     private Double dailyRecordPace;
     private Long dailyRunningStep;
 
-
     public DailyRecord(Member member, Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
         this.member=member;
         this.dailyTotalDistance = dailyTotalDistance;
