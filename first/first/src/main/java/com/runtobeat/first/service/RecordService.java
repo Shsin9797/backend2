@@ -68,6 +68,11 @@ public class RecordService {
         record.setRecordPace(recordCreateRequestDTO.getRecordPace());
 
         Record updatedRecord = recordRepository.save(record);
+
+        dailyRecordService.updateDailyRecord(updatedRecord);
+        weeklyRecordService.updateWeeklyRecord(updatedRecord);
+        monthlyRecordService.updateMonthlyRecord(updatedRecord);
+
         return convertToResponseDTO(updatedRecord);
     }
 
