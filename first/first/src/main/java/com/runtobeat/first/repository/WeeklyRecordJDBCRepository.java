@@ -28,14 +28,6 @@ public class WeeklyRecordJDBCRepository {
         return year + "-" + weekNumber;
     }
 
-    public long toSeconds(LocalTime time) {
-        return time.toSecondOfDay();
-    }
-
-    public LocalTime toLocalTime(long seconds) {
-        return LocalTime.ofSecondOfDay(seconds);
-    }
-
     public void save(Record record) {
         // Calculate week year from record date
         String weekYear = getWeekYear(record.getRecordDate());
@@ -58,10 +50,10 @@ public class WeeklyRecordJDBCRepository {
         } else {
             // Update existing record
             existingRecord.setWeeklyTotalDistance(existingRecord.getWeeklyTotalDistance() + record.getRunningDistance());
-            long totalExistingSeconds = toSeconds(existingRecord.getWeeklyTotalTime());
-            long totalNewSeconds = toSeconds(record.getRunningTime());
+            long totalExistingSeconds = existingRecord.getWeeklyTotalTime();
+            long totalNewSeconds = record.getRunningTime();
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
-            existingRecord.setWeeklyTotalTime(toLocalTime(updateTotalSeconds));
+            existingRecord.setWeeklyTotalTime(updateTotalSeconds);
             double newTotalDistance = existingRecord.getWeeklyTotalDistance();
             existingRecord.setWeeklyRecordPace(updateTotalSeconds /newTotalDistance);
 

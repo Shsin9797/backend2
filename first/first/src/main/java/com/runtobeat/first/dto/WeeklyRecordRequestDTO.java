@@ -14,15 +14,13 @@ public class WeeklyRecordRequestDTO {
     private Long weeklyRecordId;
     private Long memberId;
     private Double weeklyTotalDistance;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime weeklyTotalTime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Long weeklyTotalTime;
     private LocalDate yearWeek;
     private Double weeklyRecordPace;
     private Long weeklyRunningStep;
     private String weekYear;
 
-    public WeeklyRecordRequestDTO(Long memberId, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
+    public WeeklyRecordRequestDTO(Long memberId, Double weeklyTotalDistance, Long weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
         this.memberId = memberId;
         this.weeklyTotalDistance = weeklyTotalDistance;
         this.weeklyTotalTime = weeklyTotalTime;

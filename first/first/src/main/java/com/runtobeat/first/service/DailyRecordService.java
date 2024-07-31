@@ -27,12 +27,6 @@ public class DailyRecordService {
     @Autowired
     private DailyRecordJDBCRepository dailyRecordJDBCRepository;
 
-    public long toSeconds(LocalTime time) {
-        return time.toSecondOfDay();
-    }
-    public LocalTime toLocalTime(long seconds) {
-        return LocalTime.ofSecondOfDay(seconds);
-    }
 
     public DailyRecord createDailyRecord(DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = new DailyRecord(
@@ -107,11 +101,11 @@ public class DailyRecordService {
             );
         } else {
             Double newDailyDistance = originDaily.getDailyTotalDistance() + savedRecord.getRunningDistance();
-            long totalExistingSeconds = toSeconds(originDaily.getDailyTotalTime());
-            long totalNewSeconds = toSeconds(savedRecord.getRunningTime());
+            long totalExistingSeconds = originDaily.getDailyTotalTime();
+            long totalNewSeconds = savedRecord.getRunningTime();
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
 
-            LocalTime newDailyTime = toLocalTime(updateTotalSeconds);
+            long newDailyTime = updateTotalSeconds;
             Double newDailyPace = (newDailyDistance > 0) ? (updateTotalSeconds / newDailyDistance) : 0.0;
 
             Long newDailyStep = originDaily.getDailyRunningStep() + savedRecord.getRunningStep();

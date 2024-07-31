@@ -16,14 +16,12 @@ public class RecordResponseDTO {
     private Long recordId;
     private Long memberId;
     private Double runningDistance;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime runningTime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Long runningTime;
     private LocalDate recordDate;
     private Double recordPace;
     private Long runningStep;
 
-    public RecordResponseDTO(Long memberId, Double runningDistance, LocalTime runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
+    public RecordResponseDTO(Long memberId, Double runningDistance, Long runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
         this.memberId = memberId;
         this.runningDistance = runningDistance;
         this.runningTime = runningTime;

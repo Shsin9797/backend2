@@ -22,13 +22,13 @@ public class WeeklyRecord {
     private Member member;
 
     private Double weeklyTotalDistance;
-    private LocalTime weeklyTotalTime;
+    private Long weeklyTotalTime;
     private LocalDate yearWeek;
     private Double weeklyRecordPace;
     private Long weeklyRunningStep;
     private String weekYear;
 
-    public WeeklyRecord(Member member, Double weeklyTotalDistance, LocalTime weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
+    public WeeklyRecord(Member member, Double weeklyTotalDistance, Long weeklyTotalTime, LocalDate yearWeek, Double weeklyRecordPace, Long weeklyRunningStep, String weekYear) {
         this.member = member;
         this.weeklyTotalDistance = weeklyTotalDistance;
         this.weeklyTotalTime = weeklyTotalTime;

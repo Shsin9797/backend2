@@ -20,10 +20,10 @@ public class Member {
     private Long memberId;
     private String memberName;
     private Double totalDistance; // 타입확인
-    private LocalTime totalTime; // 타입확인
+    private Long totalTime; // 타입확인
     private Double avgPace;
 
-    public Member(String memberName, Double totalDistance, LocalTime totalTime, Double avgPace) {
+    public Member(String memberName, Double totalDistance, Long totalTime, Double avgPace) {
         this.memberName = memberName;
         this.totalDistance = totalDistance;
         this.totalTime = totalTime;

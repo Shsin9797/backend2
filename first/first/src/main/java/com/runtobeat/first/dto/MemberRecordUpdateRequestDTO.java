@@ -14,7 +14,6 @@ import java.time.LocalTime;
 @Setter
 public class MemberRecordUpdateRequestDTO {
     private Double totalDistance;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime totalTime;
+    private Long totalTime;
     private Double avgPace;
 }

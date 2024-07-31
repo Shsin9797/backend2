@@ -14,14 +14,12 @@ public class DailyRecordResponseDTO {
     private Long dailyRecordId;
     private Long memberId;
     private Double dailyTotalDistance;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime dailyTotalTime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Long dailyTotalTime;
     private LocalDate yearMonthDate;
     private Double dailyRecordPace;
     private Long dailyRunningStep;
 
-    public DailyRecordResponseDTO(Long memberId, Double dailyTotalDistance, LocalTime dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
+    public DailyRecordResponseDTO(Long memberId, Double dailyTotalDistance, Long dailyTotalTime, LocalDate yearMonthDate, Double dailyRecordPace, Long dailyRunningStep) {
         this.memberId = memberId;
         this.dailyTotalDistance = dailyTotalDistance;
         this.dailyTotalTime = dailyTotalTime;
