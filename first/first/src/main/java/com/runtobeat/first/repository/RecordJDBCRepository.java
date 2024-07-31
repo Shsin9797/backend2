@@ -7,45 +7,40 @@ import org.springframework.stereotype.Repository;
 public class RecordJDBCRepository {
 
     private final JdbcTemplate jdbcTemplate;
-    RecordRepository RecordRepository;
+    RecordRepository recordRepository;
 
-    public RecordJDBCRepository(JdbcTemplate jdbcTemplate, RecordRepository RecordRepository) {
+    public RecordJDBCRepository(JdbcTemplate jdbcTemplate, RecordRepository recordRepository) {
         this.jdbcTemplate = jdbcTemplate;
-        this.RecordRepository = RecordRepository;
+        this.recordRepository = recordRepository;
     }
 
-
-    public Integer getTodayMyThisRanking(Long memberId, String recordId) {
-        String sql = "SELECT rank FROM (" +
+    public Integer getTodayMyRanking(Long memberId, Long recordId) {
+        String sql = "SELECT r.rank FROM (" +
                 "    SELECT memberId, recordId, recordPace, " +
-                "           RANK() OVER (ORDER BY recordPace) as rank " +
+                "           ROW_NUMBER() OVER (ORDER BY recordPace) AS rank " +
                 "    FROM Record " +
                 "    WHERE recordDate = CURDATE() " +
-                ") ranked_records " +
-                "WHERE memberId = ? AND recordId = ?";
+                ") AS r " +
+                "WHERE r.memberId = ? AND r.recordId = ?";
 
         return jdbcTemplate.queryForObject(sql, new Object[]{memberId, recordId}, Integer.class);
-
     }
 
-    //아닌거같아서 미수정
     public Integer getTodayMyThisRanking2(String memberId, String recordId) {
         String sql = "SELECT ranking " +
                 "FROM ( " +
                 "    SELECT member_id, record_id, " +
-                "           ROW_NUMBER() OVER (PARTITION BY record_id ORDER BY score DESC) as ranking " +
+                "           ROW_NUMBER() OVER (PARTITION BY record_id ORDER BY score DESC) AS ranking " +
                 "    FROM daily_records " +
                 "    WHERE DATE(created_at) = CURRENT_DATE " +
                 "      AND record_id = ? " +
-                ") ranked " +
+                ") AS ranked " +
                 "WHERE member_id = ?";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, recordId, memberId);
     }
 
-
     public Double getTodayTotalUserRecordAvgPace() {
-
         String sql = "SELECT AVG(recordPace) AS avg_pace " +
                 "FROM Record " +
                 "WHERE recordDate = CURDATE()";

@@ -1,6 +1,9 @@
 package com.runtobeat.first.service;
 
+import com.runtobeat.first.dto.DailyRecordResponseDTO;
 import com.runtobeat.first.dto.MonthlyRecordRequestDTO;
+import com.runtobeat.first.dto.MonthlyRecordResponseDTO;
+import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.MonthlyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.MemberRepository;
@@ -53,6 +56,24 @@ public class MonthlyRecordService {
         existingRecord.setMonthlyRecordPace(requestDTO.getMonthlyRecordPace());
         return monthlyRecordRepository.save(existingRecord);
     }
+
+    public List<MonthlyRecordResponseDTO> getMonthlyRecordListByMemberId(Long memberId) {
+        List<MonthlyRecord> monthlyRecordList = monthlyRecordRepository.findAllByMemberMemberId(memberId);
+        return monthlyRecordList.stream().map(this::fromEntity).toList();
+    }
+
+    public MonthlyRecordResponseDTO fromEntity(MonthlyRecord monthlyRecord) {
+        return new MonthlyRecordResponseDTO(
+                monthlyRecord.getMonthlyRecordId(),
+                monthlyRecord.getMember().getMemberId(),
+                monthlyRecord.getMonthlyTotalDistance(),
+                monthlyRecord.getMonthlyTotalTime(),
+                monthlyRecord.getYearMonths(),
+                monthlyRecord.getMonthlyRecordPace(),
+                monthlyRecord.getMonthlyRunningStep(),
+                monthlyRecord.getMonthYears());
+    }
+
 
     public void updateMonthlyRecord(Record savedRecord) {
         monthlyRecordJDBCRepository.save(savedRecord);

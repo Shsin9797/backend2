@@ -89,13 +89,13 @@ public class RecordService {
                 record.getRecordDate(),
                 record.getRecordPace(),
                 record.getRunningStep()
-                );
+        );
     }
 
-    public TodayRankingResponseDTO getMyRecordRanking(Long memberId, String recordId) {
+    public TodayRankingResponseDTO getMyRecordRanking(Long memberId, Long recordId) {
 
         //'나'의 '이번' '레코드 기록'의 /  '오늘'의 '랭킹값' 가져오기 (sql 쿼리로 )
-        Integer todayMyThisRanking = recordJDBCRepository.getTodayMyThisRanking(memberId,recordId);
+        Integer todayMyThisRanking = recordJDBCRepository.getTodayMyRanking(memberId,recordId);
 
         // '오늘' '전체 사용자' '레코드'의 '페이스' 값을 평균내서 가져오기
         Double todayTotalUserRecordAvgPace = recordJDBCRepository.getTodayTotalUserRecordAvgPace();

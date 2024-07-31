@@ -1,5 +1,6 @@
 package com.runtobeat.first.controller;
 
+import com.runtobeat.first.dto.DailyRecordResponseDTO;
 import com.runtobeat.first.dto.WeeklyRecordRequestDTO;
 import com.runtobeat.first.dto.WeeklyRecordResponseDTO;
 import com.runtobeat.first.entity.WeeklyRecord;
@@ -61,6 +62,11 @@ public class WeeklyRecordController {
                 weeklyRecord.getWeekYear()
         )).collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOs);
+    }
+    @GetMapping("/list/{memberId}")
+    public ResponseEntity<List<WeeklyRecordResponseDTO>> getDailyRecordListById(@PathVariable Long memberId) {
+        List<WeeklyRecordResponseDTO> weeklyRecord = weeklyRecordService.getWeeklyRecordListByMemberId(memberId);
+        return ResponseEntity.ok(weeklyRecord);
     }
 
     @GetMapping("/stats/avg/thisweek")
