@@ -1,6 +1,9 @@
 package com.runtobeat.first.service;
 
+import com.runtobeat.first.dto.DailyRecordResponseDTO;
 import com.runtobeat.first.dto.WeeklyRecordRequestDTO;
+import com.runtobeat.first.dto.WeeklyRecordResponseDTO;
+import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.entity.WeeklyRecord;
 import com.runtobeat.first.repository.MemberRepository;
@@ -38,6 +41,21 @@ public class WeeklyRecordService {
 
     public WeeklyRecord getWeeklyRecordById(Long id) {
         return weeklyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
+    }
+    public List<WeeklyRecordResponseDTO> getWeeklyRecordListByMemberId(Long memberId) {
+        List<WeeklyRecord> weeklyRecordList = weeklyRecordRepository.findAllByMemberMemberId(memberId);
+        return weeklyRecordList.stream().map(this::fromEntity).toList();
+    }
+    public WeeklyRecordResponseDTO fromEntity(WeeklyRecord weeklyRecord) {
+        return new WeeklyRecordResponseDTO(
+                weeklyRecord.getWeeklyRecordId(),
+                weeklyRecord.getMember().getMemberId(),
+                weeklyRecord.getWeeklyTotalDistance(),
+                weeklyRecord.getWeeklyTotalTime(),
+                weeklyRecord.getYearWeek(),
+                weeklyRecord.getWeeklyRecordPace(),
+                weeklyRecord.getWeeklyRunningStep(),
+                weeklyRecord.getWeekYear());
     }
 
     public List<WeeklyRecord> getAllWeeklyRecords() {

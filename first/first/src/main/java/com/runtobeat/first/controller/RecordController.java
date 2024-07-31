@@ -34,7 +34,7 @@ public class RecordController {
     }
 
     @GetMapping("/rank/{memberId}") //해당하는 멤버의 랭킹 가져오기
-    public ResponseEntity<TodayRankingResponseDTO> getMyRanking(@PathVariable Long memberId, @RequestParam String recordId) {
+    public ResponseEntity<TodayRankingResponseDTO> getMyRanking(@PathVariable Long memberId, @RequestParam Long recordId) {
         TodayRankingResponseDTO ranking = recordService.getMyRecordRanking(memberId, recordId);
         return ResponseEntity.ok(ranking);
     }

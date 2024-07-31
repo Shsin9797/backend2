@@ -1,7 +1,9 @@
 package com.runtobeat.first.controller;
 
+import com.runtobeat.first.dto.DailyRecordResponseDTO;
 import com.runtobeat.first.dto.MonthlyRecordRequestDTO;
 import com.runtobeat.first.dto.MonthlyRecordResponseDTO;
+import com.runtobeat.first.dto.WeeklyRecordResponseDTO;
 import com.runtobeat.first.entity.MonthlyRecord;
 import com.runtobeat.first.service.MonthlyRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +84,11 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthYears()
         ));
     }
-
+    @GetMapping("/list/{memberId}")
+    public ResponseEntity<List<MonthlyRecordResponseDTO>> getDailyRecordListById(@PathVariable Long memberId) {
+        List<MonthlyRecordResponseDTO> monthlyRecord = monthlyRecordService.getMonthlyRecordListByMemberId(memberId);
+        return ResponseEntity.ok(monthlyRecord);
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMonthlyRecord(@PathVariable Long id) {
         monthlyRecordService.deleteMonthlyRecord(id);
