@@ -22,13 +22,13 @@ public class MonthlyRecord {
     private Member member;
 
     private Double monthlyTotalDistance;
-    private LocalTime monthlyTotalTime;
+    private Long monthlyTotalTime;
     private LocalDate yearMonths;
     private Double monthlyRecordPace;
     private Long monthlyRunningStep;
     private String monthYears;
 
-    public MonthlyRecord(Member member, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonths, Double monthlyRecordPace, Long monthlyRunningStep, String monthYears) {
+    public MonthlyRecord(Member member, Double monthlyTotalDistance, Long monthlyTotalTime, LocalDate yearMonths, Double monthlyRecordPace, Long monthlyRunningStep, String monthYears) {
         this.member = member;
         this.monthlyTotalDistance = monthlyTotalDistance;
         this.monthlyTotalTime = monthlyTotalTime;

@@ -15,9 +15,7 @@ import java.time.LocalTime;
 public class RecordCreateRequestDTO {
     private Long memberId;
     private Double runningDistance;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime runningTime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Long runningTime;
     private LocalDate recordDate;
     private Double recordPace;
     private Long runningStep;

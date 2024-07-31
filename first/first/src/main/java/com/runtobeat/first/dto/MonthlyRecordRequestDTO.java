@@ -14,16 +14,14 @@ public class MonthlyRecordRequestDTO {
     private Long monthlyRecordId;
     private Long memberId;
     private Double monthlyTotalDistance;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime monthlyTotalTime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Long monthlyTotalTime;
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
     private Long MonthlyRunningStep;
-    private  String monthYear;
+    private String monthYear;
 
 
-    public MonthlyRecordRequestDTO(Long memberId, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
+    public MonthlyRecordRequestDTO(Long memberId, Double monthlyTotalDistance, Long monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
         this.memberId = memberId;
         this.monthlyTotalDistance = monthlyTotalDistance;
         this.monthlyTotalTime = monthlyTotalTime;

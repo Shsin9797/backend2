@@ -10,6 +10,8 @@ import com.runtobeat.first.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -24,6 +26,7 @@ public class DailyRecordService {
 
     @Autowired
     private DailyRecordJDBCRepository dailyRecordJDBCRepository;
+
 
     public DailyRecord createDailyRecord(DailyRecordRequestDTO requestDTO) {
         DailyRecord dailyRecord = new DailyRecord(
@@ -85,8 +88,38 @@ public class DailyRecordService {
 
 
     public void updateDailyRecord(Record savedRecord) {
-        dailyRecordJDBCRepository.save(savedRecord);
+        DailyRecord originDaily = dailyRecordRepository.getByYearMonthDate(savedRecord.getRecordDate());
+
+        if (originDaily == null) {
+            originDaily = new DailyRecord(
+                    savedRecord.getMember(),
+                    savedRecord.getRunningDistance(),
+                    savedRecord.getRunningTime(),
+                    savedRecord.getRecordDate(),
+                    savedRecord.getRecordPace(),
+                    savedRecord.getRunningStep()
+            );
+        } else {
+            Double newDailyDistance = originDaily.getDailyTotalDistance() + savedRecord.getRunningDistance();
+            long totalExistingSeconds = originDaily.getDailyTotalTime();
+            long totalNewSeconds = savedRecord.getRunningTime();
+            long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
+
+            long newDailyTime = updateTotalSeconds;
+            Double newDailyPace = (newDailyDistance > 0) ? (updateTotalSeconds / newDailyDistance) : 0.0;
+
+            Long newDailyStep = originDaily.getDailyRunningStep() + savedRecord.getRunningStep();
+
+            originDaily.setDailyTotalDistance(newDailyDistance);
+            originDaily.setDailyTotalTime(newDailyTime);
+            originDaily.setDailyRecordPace(newDailyPace);
+            originDaily.setDailyRunningStep(newDailyStep);
+        }
+
+        dailyRecordRepository.save(originDaily);
     }
+
+
 
     public Double getTodayAvgDistance() {
         return dailyRecordJDBCRepository.getTodayAvgDistance();

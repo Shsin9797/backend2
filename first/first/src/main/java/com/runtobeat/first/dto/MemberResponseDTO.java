@@ -13,11 +13,10 @@ public class MemberResponseDTO {
     private Long memberId;
     private String memberName;
     private Double totalDistance;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime totalTime;
+    private Long totalTime;
     private Double avgPace;
 
-    public MemberResponseDTO(String memberName, Double totalDistance, LocalTime totalTime, Double avgPace) {
+    public MemberResponseDTO(String memberName, Double totalDistance, Long totalTime, Double avgPace) {
         this.memberName = memberName;
         this.totalDistance = totalDistance;
         this.totalTime = totalTime;
