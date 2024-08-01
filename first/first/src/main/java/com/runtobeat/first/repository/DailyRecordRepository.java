@@ -15,5 +15,5 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Long> 
 
     DailyRecord getByYearMonthDate(LocalDate recordDate);
 
-    DailyRecord findByMemberAndYearMonthDate(Member member, LocalDate recordDate);
+    DailyRecord findByMemberMemberIdAndYearMonthDate(Long memberId, LocalDate recordDate);
 }

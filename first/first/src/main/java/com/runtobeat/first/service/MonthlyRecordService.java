@@ -84,8 +84,8 @@ public class MonthlyRecordService {
 
     public void updateMonthlyRecord(Record savedRecord) {
         String monthYear = getMonthYear(savedRecord.getRecordDate());
-        MonthlyRecord originMonthly = monthlyRecordRepository.getByMemberAndMonthYears(
-                savedRecord.getMember(), monthYear);
+        MonthlyRecord originMonthly = monthlyRecordRepository.getByMemberMemberIdAndMonthYears(
+                savedRecord.getMember().getMemberId(), monthYear);
 
         if (originMonthly == null) {
             originMonthly = new MonthlyRecord(

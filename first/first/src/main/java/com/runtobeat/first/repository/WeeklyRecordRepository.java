@@ -12,5 +12,5 @@ public interface WeeklyRecordRepository extends JpaRepository<WeeklyRecord, Long
 
     List<WeeklyRecord> findAllByMemberMemberId(Long memberId);
 
-    WeeklyRecord findByMemberAndWeekYear(Member member, String weekYear);
+    WeeklyRecord findByMemberMemberIdAndWeekYear(Long memberId, String weekYear);
 }
