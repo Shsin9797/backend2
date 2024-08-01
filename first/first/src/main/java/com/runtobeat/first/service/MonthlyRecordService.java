@@ -11,6 +11,8 @@ import com.runtobeat.first.repository.MonthlyRecordJDBCRepository;
 import com.runtobeat.first.repository.MonthlyRecordRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -24,6 +26,11 @@ public class MonthlyRecordService {
         this.monthlyRecordRepository = monthlyRecordRepository;
         this.monthlyRecordJDBCRepository = monthlyRecordJDBCRepository;
         this.memberRepository = memberRepository;
+    }
+
+    public String getMonthYear(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        return date.format(formatter);
     }
 
     public MonthlyRecord createMonthlyRecord(MonthlyRecordRequestDTO requestDTO) {
@@ -76,7 +83,35 @@ public class MonthlyRecordService {
 
 
     public void updateMonthlyRecord(Record savedRecord) {
-        monthlyRecordJDBCRepository.save(savedRecord);
+        String monthYear = getMonthYear(savedRecord.getRecordDate());
+        MonthlyRecord originMonthly = monthlyRecordRepository.getByMemberAndMonthYears(
+                savedRecord.getMember(), monthYear);
+
+        if (originMonthly == null) {
+            originMonthly = new MonthlyRecord(
+                    savedRecord.getMember(),
+                    savedRecord.getRunningDistance(),
+                    savedRecord.getRunningTime(),
+                    savedRecord.getRecordDate(),
+                    savedRecord.getRecordPace(),
+                    savedRecord.getRunningStep(),
+                    monthYear
+            );
+        } else {
+            double newMonthlyDistance = originMonthly.getMonthlyTotalDistance() + savedRecord.getRunningDistance();
+            long totalExistingSeconds = originMonthly.getMonthlyTotalTime();
+            long totalNewSeconds = savedRecord.getRunningTime();
+            long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
+            long newMonthlyTime = updateTotalSeconds;
+
+            double newMonthlyPace = (newMonthlyDistance > 0) ? (newMonthlyTime / newMonthlyDistance) : 0.0;
+            long newMonthlyStep = originMonthly.getMonthlyRunningStep() + savedRecord.getRunningStep();
+            originMonthly.setMonthlyTotalDistance(newMonthlyDistance);
+            originMonthly.setMonthlyTotalTime(newMonthlyTime);
+            originMonthly.setMonthlyRecordPace(newMonthlyPace);
+            originMonthly.setMonthlyRunningStep(newMonthlyStep);
+        }
+        monthlyRecordRepository.save(originMonthly);
     }
 
     public void deleteMonthlyRecord(Long id) {
@@ -87,3 +122,4 @@ public class MonthlyRecordService {
         return monthlyRecordJDBCRepository.getThisMonthAvgDistance();
     }
 }
+
