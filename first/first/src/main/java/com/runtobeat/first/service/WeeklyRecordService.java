@@ -80,8 +80,8 @@ public class WeeklyRecordService {
     }
     public void updateWeeklyRecord(Record savedRecord) {
         String weekYear = getWeekYear(savedRecord.getRecordDate());
-        WeeklyRecord originWeekly = weeklyRecordRepository.findByMemberAndWeekYear(
-                savedRecord.getMember(), weekYear);
+        WeeklyRecord originWeekly = weeklyRecordRepository.findByMemberMemberIdAndWeekYear(
+                savedRecord.getMember().getMemberId(), weekYear);
 
         if (originWeekly == null) {
             originWeekly = new WeeklyRecord(

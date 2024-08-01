@@ -11,6 +11,5 @@ public interface MonthlyRecordRepository extends JpaRepository<MonthlyRecord,Lon
 
     List<MonthlyRecord> findAllByMemberMemberId(Long memberId);
 
-
-    MonthlyRecord getByMemberAndMonthYears(Member member, String monthYear);
+    MonthlyRecord getByMemberMemberIdAndMonthYears(Long memberId, String monthYear);
 }
