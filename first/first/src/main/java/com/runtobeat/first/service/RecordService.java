@@ -8,9 +8,6 @@ import com.runtobeat.first.repository.RecordJDBCRepository;
 import com.runtobeat.first.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.temporal.IsoFields;
 import java.util.List;
 import java.util.stream.Collectors;
 
