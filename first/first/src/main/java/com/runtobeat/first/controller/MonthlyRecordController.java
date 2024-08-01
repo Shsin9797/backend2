@@ -1,14 +1,19 @@
 package com.runtobeat.first.controller;
 
-import com.runtobeat.first.dto.DailyRecordResponseDTO;
 import com.runtobeat.first.dto.MonthlyRecordRequestDTO;
 import com.runtobeat.first.dto.MonthlyRecordResponseDTO;
-import com.runtobeat.first.dto.WeeklyRecordResponseDTO;
 import com.runtobeat.first.entity.MonthlyRecord;
 import com.runtobeat.first.service.MonthlyRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,11 +89,13 @@ public class MonthlyRecordController {
                 monthlyRecord.getMonthYears()
         ));
     }
+
     @GetMapping("/list/{memberId}")
     public ResponseEntity<List<MonthlyRecordResponseDTO>> getDailyRecordListById(@PathVariable Long memberId) {
         List<MonthlyRecordResponseDTO> monthlyRecord = monthlyRecordService.getMonthlyRecordListByMemberId(memberId);
         return ResponseEntity.ok(monthlyRecord);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMonthlyRecord(@PathVariable Long id) {
         monthlyRecordService.deleteMonthlyRecord(id);

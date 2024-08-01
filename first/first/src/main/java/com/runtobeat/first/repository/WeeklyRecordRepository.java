@@ -1,7 +1,5 @@
 package com.runtobeat.first.repository;
 
-import com.runtobeat.first.entity.DailyRecord;
-import com.runtobeat.first.entity.Member;
 import com.runtobeat.first.entity.WeeklyRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 

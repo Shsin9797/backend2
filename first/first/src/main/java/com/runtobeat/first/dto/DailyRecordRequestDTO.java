@@ -1,12 +1,11 @@
 package com.runtobeat.first.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

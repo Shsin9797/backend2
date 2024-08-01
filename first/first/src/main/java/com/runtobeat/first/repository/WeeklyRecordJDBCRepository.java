@@ -1,13 +1,12 @@
 package com.runtobeat.first.repository;
 
-import com.runtobeat.first.entity.WeeklyRecord;
 import com.runtobeat.first.entity.Record;
+import com.runtobeat.first.entity.WeeklyRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.temporal.IsoFields;
 
 @Repository
@@ -55,7 +54,7 @@ public class WeeklyRecordJDBCRepository {
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
             existingRecord.setWeeklyTotalTime(updateTotalSeconds);
             double newTotalDistance = existingRecord.getWeeklyTotalDistance();
-            existingRecord.setWeeklyRecordPace(updateTotalSeconds /newTotalDistance);
+            existingRecord.setWeeklyRecordPace(updateTotalSeconds / newTotalDistance);
 
             existingRecord.setWeeklyRunningStep(existingRecord.getWeeklyRunningStep() + record.getRunningStep());
 

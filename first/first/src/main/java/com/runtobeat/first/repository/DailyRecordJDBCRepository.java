@@ -45,7 +45,7 @@ public class DailyRecordJDBCRepository {
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
             existingRecord.setDailyTotalTime(updateTotalSeconds);
             double newTotalDistance = existingRecord.getDailyTotalDistance();
-            existingRecord.setDailyRecordPace(updateTotalSeconds/newTotalDistance);
+            existingRecord.setDailyRecordPace(updateTotalSeconds / newTotalDistance);
             existingRecord.setDailyRunningStep(existingRecord.getDailyRunningStep() + record.getRunningStep());
 
             dailyRecordRepository.save(existingRecord);

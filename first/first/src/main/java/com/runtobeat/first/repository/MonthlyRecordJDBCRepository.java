@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Repository
@@ -48,7 +47,7 @@ public class MonthlyRecordJDBCRepository {
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
             existingRecord.setMonthlyTotalTime(updateTotalSeconds);
             double newTotalDistance = existingRecord.getMonthlyTotalDistance();
-            existingRecord.setMonthlyRecordPace(updateTotalSeconds/newTotalDistance);
+            existingRecord.setMonthlyRecordPace(updateTotalSeconds / newTotalDistance);
             existingRecord.setMonthlyRunningStep(existingRecord.getMonthlyRunningStep() + record.getRunningStep());
 
             monthlyRecordRepository.save(existingRecord);
