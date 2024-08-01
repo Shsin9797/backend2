@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.IsoFields;
 
 @Entity
 @NoArgsConstructor
@@ -37,5 +38,11 @@ public class Record {
         this.recordDate = recordDate;
         this.recordPace = recordPace;
         this.runningStep = runningStep;
+    }
+
+    public String getWeekYear(LocalDate date) {
+        int weekNumber = date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+        int year = date.get(IsoFields.WEEK_BASED_YEAR);
+        return year + "-" + weekNumber;
     }
 }

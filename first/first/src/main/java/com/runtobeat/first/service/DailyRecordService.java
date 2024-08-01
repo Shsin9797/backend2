@@ -88,7 +88,7 @@ public class DailyRecordService {
 
 
     public void updateDailyRecord(Record savedRecord) {
-        DailyRecord originDaily = dailyRecordRepository.getByYearMonthDate(savedRecord.getRecordDate());
+        DailyRecord originDaily = dailyRecordRepository.findByMemberAndYearMonthDate(savedRecord.getMember(), savedRecord.getRecordDate());
 
         if (originDaily == null) {
             originDaily = new DailyRecord(

@@ -1,6 +1,7 @@
 package com.runtobeat.first.repository;
 
 import com.runtobeat.first.entity.DailyRecord;
+import com.runtobeat.first.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -13,4 +14,6 @@ public interface DailyRecordRepository extends JpaRepository<DailyRecord, Long> 
     List<DailyRecord> findAllByMemberMemberId(Long memberId);
 
     DailyRecord getByYearMonthDate(LocalDate recordDate);
+
+    DailyRecord findByMemberAndYearMonthDate(Member member, LocalDate recordDate);
 }

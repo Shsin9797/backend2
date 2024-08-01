@@ -9,8 +9,11 @@ import com.runtobeat.first.entity.WeeklyRecord;
 import com.runtobeat.first.repository.MemberRepository;
 import com.runtobeat.first.repository.WeeklyRecordJDBCRepository;
 import com.runtobeat.first.repository.WeeklyRecordRepository;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.IsoFields;
 import java.util.List;
 
 @Service
@@ -19,6 +22,12 @@ public class WeeklyRecordService {
     private WeeklyRecordRepository weeklyRecordRepository;
     private WeeklyRecordJDBCRepository weeklyRecordJDBCRepository;
     private MemberRepository memberRepository;
+
+    public String getWeekYear(LocalDate date) {
+        int weekNumber = date.get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
+        int year = date.get(IsoFields.WEEK_BASED_YEAR);
+        return year + "-" + weekNumber;
+    }
 
     public WeeklyRecordService(WeeklyRecordRepository weeklyRecordRepository, WeeklyRecordJDBCRepository weeklyRecordJDBCRepository, MemberRepository memberRepository) {
         this.weeklyRecordRepository = weeklyRecordRepository;
@@ -71,10 +80,41 @@ public class WeeklyRecordService {
         existingRecord.setWeeklyRecordPace(requestDTO.getWeeklyRecordPace());
         return weeklyRecordRepository.save(existingRecord);
     }
-
     public void updateWeeklyRecord(Record savedRecord) {
-        weeklyRecordJDBCRepository.save(savedRecord);
+        String weekYear = getWeekYear(savedRecord.getRecordDate());
+        WeeklyRecord originWeekly = weeklyRecordRepository.findByMemberAndYearWeek(
+                savedRecord.getMember(), weekYear);
+
+        if (originWeekly == null) {
+            originWeekly = new WeeklyRecord(
+                    savedRecord.getMember(),
+                    savedRecord.getRunningDistance(),
+                    savedRecord.getRunningTime(),
+                    savedRecord.getRecordDate(),
+                    savedRecord.getRecordPace(),
+                    savedRecord.getRunningStep(),
+                    weekYear
+            );
+        } else {
+            Double newWeeklyDistance = originWeekly.getWeeklyTotalDistance() + savedRecord.getRunningDistance();
+            long totalExistingSeconds = originWeekly.getWeeklyTotalTime();
+            long totalNewSeconds = savedRecord.getRunningTime();
+            long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
+
+            long newWeeklyTime = updateTotalSeconds;
+            Double newWeeklyPace = (newWeeklyDistance > 0) ? (updateTotalSeconds / newWeeklyDistance) : 0.0;
+
+            Long newWeeklyStep = originWeekly.getWeeklyRunningStep() + savedRecord.getRunningStep();
+
+            originWeekly.setWeeklyTotalDistance(newWeeklyDistance);
+            originWeekly.setWeeklyTotalTime(newWeeklyTime);
+            originWeekly.setWeeklyRecordPace(newWeeklyPace);
+            originWeekly.setWeeklyRunningStep(newWeeklyStep);
+        }
+
+        weeklyRecordRepository.save(originWeekly);
     }
+
 
     public void deleteWeeklyRecord(Long id) {
         weeklyRecordRepository.deleteById(id);

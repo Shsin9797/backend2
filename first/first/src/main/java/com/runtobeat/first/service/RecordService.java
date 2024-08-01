@@ -9,6 +9,8 @@ import com.runtobeat.first.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.IsoFields;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +71,7 @@ public class RecordService {
 
         Record updatedRecord = recordRepository.save(record);
 
+        memberService.updateMemberRunningInfo(updatedRecord);
         dailyRecordService.updateDailyRecord(updatedRecord);
         weeklyRecordService.updateWeeklyRecord(updatedRecord);
         monthlyRecordService.updateMonthlyRecord(updatedRecord);
@@ -106,5 +109,7 @@ public class RecordService {
         // '랭킹' '리스폰스 디티오' 반환
         return new TodayRankingResponseDTO(todayMyThisRanking,todayTotalUserRecordAvgPace,todayAllUserRecordCount);
     }
+
+
 
 }
