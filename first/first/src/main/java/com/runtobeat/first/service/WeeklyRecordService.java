@@ -49,10 +49,12 @@ public class WeeklyRecordService {
     public WeeklyRecord getWeeklyRecordById(Long id) {
         return weeklyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
     }
+
     public List<WeeklyRecordResponseDTO> getWeeklyRecordListByMemberId(Long memberId) {
         List<WeeklyRecord> weeklyRecordList = weeklyRecordRepository.findAllByMemberMemberId(memberId);
         return weeklyRecordList.stream().map(this::fromEntity).toList();
     }
+
     public WeeklyRecordResponseDTO fromEntity(WeeklyRecord weeklyRecord) {
         return new WeeklyRecordResponseDTO(
                 weeklyRecord.getWeeklyRecordId(),
@@ -78,10 +80,11 @@ public class WeeklyRecordService {
         existingRecord.setWeeklyRecordPace(requestDTO.getWeeklyRecordPace());
         return weeklyRecordRepository.save(existingRecord);
     }
+
     public void updateWeeklyRecord(Record savedRecord) {
         String weekYear = getWeekYear(savedRecord.getRecordDate());
-        WeeklyRecord originWeekly = weeklyRecordRepository.findByMemberAndWeekYear(
-                savedRecord.getMember(), weekYear);
+        WeeklyRecord originWeekly = weeklyRecordRepository.findByMemberMemberIdAndWeekYear(
+                savedRecord.getMember().getMemberId(), weekYear);
 
         if (originWeekly == null) {
             originWeekly = new WeeklyRecord(

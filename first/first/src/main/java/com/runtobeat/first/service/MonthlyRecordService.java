@@ -1,9 +1,7 @@
 package com.runtobeat.first.service;
 
-import com.runtobeat.first.dto.DailyRecordResponseDTO;
 import com.runtobeat.first.dto.MonthlyRecordRequestDTO;
 import com.runtobeat.first.dto.MonthlyRecordResponseDTO;
-import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.MonthlyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.MemberRepository;
@@ -56,10 +54,10 @@ public class MonthlyRecordService {
 
     public MonthlyRecord updateMonthlyRecord(Long id, MonthlyRecordRequestDTO requestDTO) {
         MonthlyRecord existingRecord = monthlyRecordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
-        existingRecord.getMember().setMemberId(requestDTO.getMemberId());
+        //existingRecord.getMember().setMemberId(requestDTO.getMemberId());
         existingRecord.setMonthlyTotalDistance(requestDTO.getMonthlyTotalDistance());
         existingRecord.setMonthlyTotalTime(requestDTO.getMonthlyTotalTime());
-        existingRecord.setYearMonths(requestDTO.getYearMonth());
+        //existingRecord.setYearMonths(requestDTO.getYearMonth());
         existingRecord.setMonthlyRecordPace(requestDTO.getMonthlyRecordPace());
         return monthlyRecordRepository.save(existingRecord);
     }
@@ -84,8 +82,8 @@ public class MonthlyRecordService {
 
     public void updateMonthlyRecord(Record savedRecord) {
         String monthYear = getMonthYear(savedRecord.getRecordDate());
-        MonthlyRecord originMonthly = monthlyRecordRepository.getByMemberAndMonthYears(
-                savedRecord.getMember(), monthYear);
+        MonthlyRecord originMonthly = monthlyRecordRepository.getByMemberMemberIdAndMonthYears(
+                savedRecord.getMember().getMemberId(), monthYear);
 
         if (originMonthly == null) {
             originMonthly = new MonthlyRecord(

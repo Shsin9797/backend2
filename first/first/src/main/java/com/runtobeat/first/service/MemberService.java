@@ -10,7 +10,6 @@ import com.runtobeat.first.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -124,11 +123,11 @@ public class MemberService {
         Long newTime = totalTime + runningTime;
         Double PaceTime = newTime / 3600.0;
 
-        Double newPaceDouble = (PaceTime / newDistance) ;
+        Double newPaceDouble = (PaceTime / newDistance);
 
         originMember.setTotalDistance(newDistance);
         originMember.setTotalTime(newTime);
-        originMember.setAvgPace(newPaceDouble );
+        originMember.setAvgPace(newPaceDouble);
 
         memberRepository.save(originMember);
     }

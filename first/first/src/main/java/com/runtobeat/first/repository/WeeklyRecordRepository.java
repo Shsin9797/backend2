@@ -1,7 +1,5 @@
 package com.runtobeat.first.repository;
 
-import com.runtobeat.first.entity.DailyRecord;
-import com.runtobeat.first.entity.Member;
 import com.runtobeat.first.entity.WeeklyRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,5 +10,5 @@ public interface WeeklyRecordRepository extends JpaRepository<WeeklyRecord, Long
 
     List<WeeklyRecord> findAllByMemberMemberId(Long memberId);
 
-    WeeklyRecord findByMemberAndWeekYear(Member member, String weekYear);
+    WeeklyRecord findByMemberMemberIdAndWeekYear(Long memberId, String weekYear);
 }

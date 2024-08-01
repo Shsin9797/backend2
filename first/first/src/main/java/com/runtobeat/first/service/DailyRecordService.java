@@ -10,8 +10,6 @@ import com.runtobeat.first.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -88,7 +86,7 @@ public class DailyRecordService {
 
 
     public void updateDailyRecord(Record savedRecord) {
-        DailyRecord originDaily = dailyRecordRepository.findByMemberAndYearMonthDate(savedRecord.getMember(), savedRecord.getRecordDate());
+        DailyRecord originDaily = dailyRecordRepository.findByMemberMemberIdAndYearMonthDate(savedRecord.getMember().getMemberId(), savedRecord.getRecordDate());
 
         if (originDaily == null) {
             originDaily = new DailyRecord(
@@ -118,7 +116,6 @@ public class DailyRecordService {
 
         dailyRecordRepository.save(originDaily);
     }
-
 
 
     public Double getTodayAvgDistance() {
