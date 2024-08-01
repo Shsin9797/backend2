@@ -1,6 +1,9 @@
 package com.runtobeat.first.service;
 
+import com.runtobeat.first.dto.DailyRecordResponseDTO;
 import com.runtobeat.first.dto.MonthlyRecordRequestDTO;
+import com.runtobeat.first.dto.MonthlyRecordResponseDTO;
+import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.MonthlyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.MemberRepository;
@@ -8,6 +11,8 @@ import com.runtobeat.first.repository.MonthlyRecordJDBCRepository;
 import com.runtobeat.first.repository.MonthlyRecordRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -21,6 +26,11 @@ public class MonthlyRecordService {
         this.monthlyRecordRepository = monthlyRecordRepository;
         this.monthlyRecordJDBCRepository = monthlyRecordJDBCRepository;
         this.memberRepository = memberRepository;
+    }
+
+    public String getMonthYear(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        return date.format(formatter);
     }
 
     public MonthlyRecord createMonthlyRecord(MonthlyRecordRequestDTO requestDTO) {
@@ -54,8 +64,54 @@ public class MonthlyRecordService {
         return monthlyRecordRepository.save(existingRecord);
     }
 
+    public List<MonthlyRecordResponseDTO> getMonthlyRecordListByMemberId(Long memberId) {
+        List<MonthlyRecord> monthlyRecordList = monthlyRecordRepository.findAllByMemberMemberId(memberId);
+        return monthlyRecordList.stream().map(this::fromEntity).toList();
+    }
+
+    public MonthlyRecordResponseDTO fromEntity(MonthlyRecord monthlyRecord) {
+        return new MonthlyRecordResponseDTO(
+                monthlyRecord.getMonthlyRecordId(),
+                monthlyRecord.getMember().getMemberId(),
+                monthlyRecord.getMonthlyTotalDistance(),
+                monthlyRecord.getMonthlyTotalTime(),
+                monthlyRecord.getYearMonths(),
+                monthlyRecord.getMonthlyRecordPace(),
+                monthlyRecord.getMonthlyRunningStep(),
+                monthlyRecord.getMonthYears());
+    }
+
+
     public void updateMonthlyRecord(Record savedRecord) {
-        monthlyRecordJDBCRepository.save(savedRecord);
+        String monthYear = getMonthYear(savedRecord.getRecordDate());
+        MonthlyRecord originMonthly = monthlyRecordRepository.getByMemberAndMonthYears(
+                savedRecord.getMember(), monthYear);
+
+        if (originMonthly == null) {
+            originMonthly = new MonthlyRecord(
+                    savedRecord.getMember(),
+                    savedRecord.getRunningDistance(),
+                    savedRecord.getRunningTime(),
+                    savedRecord.getRecordDate(),
+                    savedRecord.getRecordPace(),
+                    savedRecord.getRunningStep(),
+                    monthYear
+            );
+        } else {
+            double newMonthlyDistance = originMonthly.getMonthlyTotalDistance() + savedRecord.getRunningDistance();
+            long totalExistingSeconds = originMonthly.getMonthlyTotalTime();
+            long totalNewSeconds = savedRecord.getRunningTime();
+            long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
+            long newMonthlyTime = updateTotalSeconds;
+
+            double newMonthlyPace = (newMonthlyDistance > 0) ? (newMonthlyTime / newMonthlyDistance) : 0.0;
+            long newMonthlyStep = originMonthly.getMonthlyRunningStep() + savedRecord.getRunningStep();
+            originMonthly.setMonthlyTotalDistance(newMonthlyDistance);
+            originMonthly.setMonthlyTotalTime(newMonthlyTime);
+            originMonthly.setMonthlyRecordPace(newMonthlyPace);
+            originMonthly.setMonthlyRunningStep(newMonthlyStep);
+        }
+        monthlyRecordRepository.save(originMonthly);
     }
 
     public void deleteMonthlyRecord(Long id) {
@@ -66,3 +122,4 @@ public class MonthlyRecordService {
         return monthlyRecordJDBCRepository.getThisMonthAvgDistance();
     }
 }
+

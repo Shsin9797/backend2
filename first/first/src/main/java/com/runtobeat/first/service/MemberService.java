@@ -25,7 +25,7 @@ public class MemberService {
     }
 
     public MemberResponseDTO createMember(MemberCreateRequestDTO memberCreateRequestDTO) {
-        Member member = new Member(memberCreateRequestDTO.getMemberName(), 0.0, LocalTime.of(0, 0, 0), 0.0);
+        Member member = new Member(memberCreateRequestDTO.getMemberName(), 0.0, 0L, 0.0);
         Member savedMember = memberRepository.save(member);
         return new MemberResponseDTO(
                 savedMember.getMemberId(),
@@ -82,8 +82,18 @@ public class MemberService {
         Long memberId = recordCreateRequestDTO.getMemberId();
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
         member.setTotalDistance(member.getTotalDistance() + recordCreateRequestDTO.getRunningDistance());
-        LocalTime time = recordCreateRequestDTO.getRunningTime();
-        member.setTotalTime(member.getTotalTime().plusHours(time.getHour()).plusMinutes(time.getMinute()).plusSeconds(time.getSecond()));
+        // recordCreateRequestDTO에서 시간을 초 단위로 가져오기
+        Long runningTime = recordCreateRequestDTO.getRunningTime(); // 이미 초 단위로 제공된다고 가정
+
+        // 회원의 총 시간을 초 단위로 가져오기
+        Long totalMemberTime = member.getTotalTime(); // 초 단위로 저장된 총 시간
+
+        // 새로운 시간을 기존 총 시간에 더하기
+        Long newTotalTime = totalMemberTime + runningTime;
+
+        // 업데이트된 총 시간을 회원 객체에 설정
+        member.setTotalTime(newTotalTime);
+
         member.setAvgPace(recordCreateRequestDTO.getRecordPace());
         Member updatedMember = memberRepository.save(member);
         return new MemberResponseDTO(
@@ -108,13 +118,13 @@ public class MemberService {
         Member originMember = memberRepository.findById(savedRecord.getMember().getMemberId()).get();
         Double newDistance = originMember.getTotalDistance() + savedRecord.getRunningDistance();
 
-        LocalTime runningTime = savedRecord.getRunningTime();
-        LocalTime newTime = originMember.getTotalTime()
-                .plusHours(runningTime.getHour())
-                .plusMinutes(runningTime.getMinute())
-                .plusSeconds(runningTime.getSecond());
+        Long totalTime = originMember.getTotalTime();
+        Long runningTime = savedRecord.getRunningTime();
 
-        Double newPaceDouble = (newTime.getHour()*3600 + newTime.getMinute()*60 + newTime.getSecond()) / newDistance ;
+        Long newTime = totalTime + runningTime;
+        Double PaceTime = newTime / 3600.0;
+
+        Double newPaceDouble = (PaceTime / newDistance) ;
 
         originMember.setTotalDistance(newDistance);
         originMember.setTotalTime(newTime);

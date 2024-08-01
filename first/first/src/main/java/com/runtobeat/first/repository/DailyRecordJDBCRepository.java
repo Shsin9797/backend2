@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Repository
 public class DailyRecordJDBCRepository {
@@ -19,12 +18,7 @@ public class DailyRecordJDBCRepository {
     public DailyRecordJDBCRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-    public long toSeconds(LocalTime time) {
-        return time.toSecondOfDay();
-    }
-    public LocalTime toLocalTime(long seconds) {
-        return LocalTime.ofSecondOfDay(seconds);
-    }
+
     public void save(Record record) {
         //원래있는값 중에서 현재 날짜로 가져 오기
         DailyRecord existingRecord = dailyRecordRepository.getByYearMonthDate(record.getRecordDate());
@@ -46,10 +40,10 @@ public class DailyRecordJDBCRepository {
             dailyRecordRepository.save(newRecord);
         } else {
             existingRecord.setDailyTotalDistance(existingRecord.getDailyTotalDistance() + record.getRunningDistance());
-            long totalExistingSeconds = toSeconds(existingRecord.getDailyTotalTime());
-            long totalNewSeconds = toSeconds(record.getRunningTime());
+            long totalExistingSeconds = existingRecord.getDailyTotalTime();
+            long totalNewSeconds = record.getRunningTime();
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
-            existingRecord.setDailyTotalTime(toLocalTime(updateTotalSeconds));
+            existingRecord.setDailyTotalTime(updateTotalSeconds);
             double newTotalDistance = existingRecord.getDailyTotalDistance();
             existingRecord.setDailyRecordPace(updateTotalSeconds/newTotalDistance);
             existingRecord.setDailyRunningStep(existingRecord.getDailyRunningStep() + record.getRunningStep());

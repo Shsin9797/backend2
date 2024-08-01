@@ -21,14 +21,6 @@ public class MonthlyRecordJDBCRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public long toSeconds(LocalTime time) {
-        return time.toSecondOfDay();
-    }
-
-    public LocalTime toLocalTime(long seconds) {
-        return LocalTime.ofSecondOfDay(seconds);
-    }
-
     public String getMonthYear(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
         return date.format(formatter);
@@ -51,10 +43,10 @@ public class MonthlyRecordJDBCRepository {
             monthlyRecordRepository.save(newRecord);
         } else {
             existingRecord.setMonthlyTotalDistance(existingRecord.getMonthlyTotalDistance() + record.getRunningDistance());
-            long totalExistingSeconds = toSeconds(existingRecord.getMonthlyTotalTime());
-            long totalNewSeconds = toSeconds(record.getRunningTime());
+            long totalExistingSeconds = existingRecord.getMonthlyTotalTime();
+            long totalNewSeconds = record.getRunningTime();
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
-            existingRecord.setMonthlyTotalTime(toLocalTime(updateTotalSeconds));
+            existingRecord.setMonthlyTotalTime(updateTotalSeconds);
             double newTotalDistance = existingRecord.getMonthlyTotalDistance();
             existingRecord.setMonthlyRecordPace(updateTotalSeconds/newTotalDistance);
             existingRecord.setMonthlyRunningStep(existingRecord.getMonthlyRunningStep() + record.getRunningStep());

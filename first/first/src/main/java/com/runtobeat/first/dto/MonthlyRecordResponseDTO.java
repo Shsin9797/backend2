@@ -15,15 +15,13 @@ public class MonthlyRecordResponseDTO {
     private Long monthlyRecordId;
     private Long memberId;
     private Double monthlyTotalDistance;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime monthlyTotalTime;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Long monthlyTotalTime;
     private LocalDate yearMonth;
     private Double monthlyRecordPace;
     private Long monthlyRunningStep;
-    private  String monthYear;
+    private String monthYear;
 
-    public MonthlyRecordResponseDTO(Long memberId, Double monthlyTotalDistance, LocalTime monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
+    public MonthlyRecordResponseDTO(Long memberId, Double monthlyTotalDistance, Long monthlyTotalTime, LocalDate yearMonth, Double monthlyRecordPace, Long monthlyRunningStep, String monthYear) {
         this.memberId = memberId;
         this.monthlyTotalDistance = monthlyTotalDistance;
         this.monthlyTotalTime = monthlyTotalTime;
