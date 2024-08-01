@@ -1,15 +1,13 @@
 package com.runtobeat.first.service;
 
-import com.runtobeat.first.dto.DailyRecordResponseDTO;
+
 import com.runtobeat.first.dto.WeeklyRecordRequestDTO;
 import com.runtobeat.first.dto.WeeklyRecordResponseDTO;
-import com.runtobeat.first.entity.DailyRecord;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.entity.WeeklyRecord;
 import com.runtobeat.first.repository.MemberRepository;
 import com.runtobeat.first.repository.WeeklyRecordJDBCRepository;
 import com.runtobeat.first.repository.WeeklyRecordRepository;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -82,7 +80,7 @@ public class WeeklyRecordService {
     }
     public void updateWeeklyRecord(Record savedRecord) {
         String weekYear = getWeekYear(savedRecord.getRecordDate());
-        WeeklyRecord originWeekly = weeklyRecordRepository.findByMemberAndYearWeek(
+        WeeklyRecord originWeekly = weeklyRecordRepository.findByMemberAndWeekYear(
                 savedRecord.getMember(), weekYear);
 
         if (originWeekly == null) {
@@ -96,15 +94,14 @@ public class WeeklyRecordService {
                     weekYear
             );
         } else {
-            Double newWeeklyDistance = originWeekly.getWeeklyTotalDistance() + savedRecord.getRunningDistance();
+            double newWeeklyDistance = originWeekly.getWeeklyTotalDistance() + savedRecord.getRunningDistance();
             long totalExistingSeconds = originWeekly.getWeeklyTotalTime();
             long totalNewSeconds = savedRecord.getRunningTime();
             long updateTotalSeconds = totalExistingSeconds + totalNewSeconds;
-
             long newWeeklyTime = updateTotalSeconds;
-            Double newWeeklyPace = (newWeeklyDistance > 0) ? (updateTotalSeconds / newWeeklyDistance) : 0.0;
+            double newWeeklyPace = (newWeeklyDistance > 0) ? (newWeeklyTime / newWeeklyDistance) : 0.0;
 
-            Long newWeeklyStep = originWeekly.getWeeklyRunningStep() + savedRecord.getRunningStep();
+            long newWeeklyStep = originWeekly.getWeeklyRunningStep() + savedRecord.getRunningStep();
 
             originWeekly.setWeeklyTotalDistance(newWeeklyDistance);
             originWeekly.setWeeklyTotalTime(newWeeklyTime);
