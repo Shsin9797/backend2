@@ -121,9 +121,8 @@ public class MemberService {
         Long runningTime = savedRecord.getRunningTime();
 
         Long newTime = totalTime + runningTime;
-        Double PaceTime = newTime / 3600.0;
 
-        Double newPaceDouble = (PaceTime / newDistance);
+        Double newPaceDouble = (newTime / newDistance);
 
         originMember.setTotalDistance(newDistance);
         originMember.setTotalTime(newTime);
