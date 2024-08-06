@@ -10,6 +10,7 @@ import com.runtobeat.first.service.MonthlyRecordService;
 import com.runtobeat.first.service.RecordService;
 import com.runtobeat.first.service.WeeklyRecordService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,9 +42,11 @@ public class RecordController {
         return ResponseEntity.ok(rd);
     }
 
-    @GetMapping("/rank/{memberId}") //해당하는 멤버의 랭킹 가져오기
-    public ResponseEntity<TodayRankingResponseDTO> getMyRanking(@PathVariable Long memberId, @RequestParam Long recordId) {
-        TodayRankingResponseDTO ranking = recordService.getMyRecordRanking(memberId, recordId);
+    @GetMapping(value= "/rank/{recordId}", produces = MediaType.APPLICATION_JSON_VALUE) //해당하는 멤버의 랭킹 가져오기
+    public ResponseEntity<TodayRankingResponseDTO> getMyRanking(@PathVariable Long recordId) {
+        //ResponseEntity<TodayRankingResponseDTO>
+        TodayRankingResponseDTO ranking = recordService.getMyRecordRanking(recordId);
+         //TodayRankingResponseDTO
         return ResponseEntity.ok(ranking);
     }
 

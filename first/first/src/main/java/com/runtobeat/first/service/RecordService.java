@@ -93,19 +93,20 @@ public class RecordService {
         );
     }
 
-    public TodayRankingResponseDTO getMyRecordRanking(Long memberId, Long recordId) {
+    public TodayRankingResponseDTO getMyRecordRanking(Long recordId) {
 
         //'나'의 '이번' '레코드 기록'의 /  '오늘'의 '랭킹값' 가져오기 (sql 쿼리로 )
-        Integer todayMyThisRanking = recordJDBCRepository.getTodayMyRanking(memberId, recordId);
-
+        Integer todayMyThisRanking = recordJDBCRepository.getTodayMyRanking(recordId);
+        // return todayMyThisRanking;
         // '오늘' '전체 사용자' '레코드'의 '페이스' 값을 평균내서 가져오기
         Double todayTotalUserRecordAvgPace = recordJDBCRepository.getTodayTotalUserRecordAvgPace();
+        // return todayTotalUserRecordAvgPace;
 
         // '오늘' '전체 (기록, 레코드수)' 가져오기
         Integer todayAllUserRecordCount = recordJDBCRepository.getTodayTotalRecordCount();
-
-        // '랭킹' '리스폰스 디티오' 반환
-        return new TodayRankingResponseDTO(todayMyThisRanking, todayTotalUserRecordAvgPace, todayAllUserRecordCount);
+        TodayRankingResponseDTO r =new TodayRankingResponseDTO(todayMyThisRanking, todayTotalUserRecordAvgPace, todayAllUserRecordCount);
+        // '랭킹' '리스폰스 디티오' 반환 TodayRankingResponseDTO
+        return r;
     }
 
 

@@ -14,42 +14,42 @@ public class RecordJDBCRepository {
         this.recordRepository = recordRepository;
     }
 
-    public Integer getTodayMyRanking(Long memberId, Long recordId) {
-        String sql = "SELECT r.rank FROM (" +
-                "    SELECT memberId, recordId, recordPace, " +
-                "           ROW_NUMBER() OVER (ORDER BY recordPace) AS rank " +
-                "    FROM Record " +
-                "    WHERE recordDate = CURDATE() " +
+    public Integer getTodayMyRanking(Long recordId) {
+        String sql = "SELECT r.ranking FROM (" +
+                "    SELECT record_id, record_pace, " +
+                "           ROW_NUMBER() OVER (ORDER BY record_pace) AS ranking " +
+                "    FROM record " +
+                "    WHERE record_date = CURDATE() " +
                 ") AS r " +
-                "WHERE r.memberId = ? AND r.recordId = ?";
+                "WHERE r.record_id = ?";
 
-        return jdbcTemplate.queryForObject(sql, new Object[]{memberId, recordId}, Integer.class);
+        return jdbcTemplate.queryForObject(sql, new Object[]{recordId}, Integer.class);
     }
 
-    public Integer getTodayMyThisRanking2(String memberId, String recordId) {
-        String sql = "SELECT ranking " +
-                "FROM ( " +
-                "    SELECT member_id, record_id, " +
-                "           ROW_NUMBER() OVER (PARTITION BY record_id ORDER BY score DESC) AS ranking " +
-                "    FROM daily_records " +
-                "    WHERE DATE(created_at) = CURRENT_DATE " +
-                "      AND record_id = ? " +
-                ") AS ranked " +
-                "WHERE member_id = ?";
-
-        return jdbcTemplate.queryForObject(sql, Integer.class, recordId, memberId);
-    }
+//    public Integer getTodayMyThisRanking2(String memberId, String recordId) {
+//        String sql = "SELECT ranking " +
+//                "FROM ( " +
+//                "    SELECT member_id, record_id, " +
+//                "           ROW_NUMBER() OVER (PARTITION BY record_id ORDER BY score DESC) AS ranking " +
+//                "    FROM daily_records " +
+//                "    WHERE DATE(created_at) = CURRENT_DATE " +
+//                "      AND record_id = ? " +
+//                ") AS ranked " +
+//                "WHERE member_id = ?";
+//
+//        return jdbcTemplate.queryForObject(sql, Integer.class, recordId, memberId);
+//    }
 
     public Double getTodayTotalUserRecordAvgPace() {
-        String sql = "SELECT AVG(recordPace) AS avg_pace " +
-                "FROM Record " +
-                "WHERE recordDate = CURDATE()";
+        String sql = "SELECT AVG(record_pace) AS avg_pace " +
+                "FROM record " +
+                "WHERE record_date = CURDATE()";
 
         return jdbcTemplate.queryForObject(sql, Double.class);
     }
 
     public Integer getTodayTotalRecordCount() {
-        String sql = "SELECT COUNT(*) FROM Record WHERE recordDate = CURDATE()";
+        String sql = "SELECT COUNT(*) FROM record WHERE record_date = CURDATE()";
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 }
